@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tran Minh Quan — Portfolio
 
-## Getting Started
+Personal portfolio for **Tran Minh Quan**, a Full-stack Developer. The site presents selected professional work, experience, technical toolkit, and contact paths in a focused case-study format.
 
-First, run the development server:
+**Live site:** [quan-portfolio-ten.vercel.app](https://quan-portfolio-ten.vercel.app)  
+**GitHub:** [@micharel09](https://github.com/micharel09)
+
+## Highlights
+
+- Bilingual interface: English and Vietnamese
+- Case studies for work at FPT Telecom, ITD Solutions, and FPT Software
+- Project galleries with keyboard-accessible lightbox controls
+- Smooth scrolling, scroll progress feedback, and motion that respects reduced-motion preferences
+- Responsive layout and production-ready metadata, favicon, and Open Graph image
+
+## Built with
+
+- [Next.js 16](https://nextjs.org/)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lenis](https://lenis.darkroom.engineering/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [Vercel](https://vercel.com/) for deployment
+
+## Pages
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Introduction, skills, experience, and selected work |
+| `/projects` | Full project index |
+| `/projects/[slug]` | Individual project case study and photo gallery |
+| `/about` | Professional background and approach |
+| `/contact` | Contact information and social links |
+
+## Run locally
+
+Prerequisites: Node.js 20.9 or newer and npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+The repository is connected to Vercel. A push to `main` triggers a production deployment.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To deploy from the CLI instead:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx vercel --prod
+```
 
-## Deploy on Vercel
+## Repository notes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Content and project data are maintained in the application source so the portfolio stays lightweight and easy to update.
+- Personal and company images are stored in `public/assets` and are used only to document the represented work experience.
+- This is a personal portfolio. Reuse of its content, photographs, or identity assets requires permission.
