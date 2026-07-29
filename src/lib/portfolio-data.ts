@@ -57,9 +57,10 @@ export const projects: Project[] = [
     contribution: [
       { en: "Participated in developing incident and event alert functionality for VDS devices and AI CCTV cameras.", vi: "Tham gia phát triển chức năng cảnh báo sự cố và sự kiện cho thiết bị VDS và camera AI CCTV." },
       { en: "Contributed to a vehicle weighbridge system used in toll-station workflows.", vi: "Đóng góp vào hệ thống cân xe phục vụ quy trình tại trạm thu phí." },
+      { en: "Used Docker to package and deploy services for the project environment.", vi: "Sử dụng Docker để đóng gói và triển khai service cho môi trường dự án." },
       { en: "Gained hands-on experience with real-time data, event processing, and cross-team delivery.", vi: "Tích lũy kinh nghiệm thực tế về dữ liệu thời gian thực, xử lý sự kiện và phối hợp liên nhóm." },
     ],
-    stack: ["C#", "ASP.NET Core", "Real-time events", "SQL Server"],
+    stack: ["C#", "ASP.NET Core", "Docker", "Real-time events", "SQL Server"],
     year: "2026",
     tone: "itd",
   },

@@ -6,7 +6,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FaDatabase, FaTowerBroadcast } from "react-icons/fa6";
 import { DiDotnet, DiMsqlServer, DiRedis } from "react-icons/di";
-import { SiGithub, SiMongodb, SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
+import { SiDocker, SiGithub, SiGitlab, SiMongodb, SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { capabilities, certifications, copy, experience, type Language, projects, skillGroups } from "@/lib/portfolio-data";
 
 type Page = "home" | "projects" | "project" | "about" | "contact";
@@ -59,6 +59,8 @@ function TechIcon({ name, large = false }: { name: string; large?: boolean }) {
   if (name === "MongoDB") return <SiMongodb className={className} style={{ color: "#47a248" }} />;
   if (name === "Redis") return <DiRedis className={className} style={{ color: "#ff4438" }} />;
   if (name === "GitHub") return <SiGithub className={className} />;
+  if (name === "GitLab") return <SiGitlab className={className} style={{ color: "#fc6d26" }} />;
+  if (name === "Docker") return <SiDocker className={className} style={{ color: "#2496ed" }} />;
   return <FaDatabase className={className} style={{ color: "#f97316" }} />;
 }
 
@@ -78,10 +80,13 @@ function Hero({ language }: { language: Language }) {
       <p className="hero-body">{text(copy.hero.body, language)}</p>
       <div className="hero-actions"><Link className="button button-primary" href="/projects">{text(copy.action.work, language)} <Arrow /></Link><a className="button button-secondary" href="/assets/tran-minh-quan-cv.pdf" download>{text(copy.action.cv, language)} ↓</a></div>
     </Reveal>
-    <motion.div className="portrait-frame" initial={{ opacity: 0, x: 44, rotate: 2 }} animate={{ opacity: 1, x: 0, rotate: 0 }} transition={{ type: "spring", stiffness: 88, damping: 18, delay: 0.15 }} whileHover={{ y: -8, rotate: -1 }}>
+    <motion.div className="portrait-frame" initial={{ x: 44, rotate: 2 }} animate={{ x: 0, rotate: 0 }} transition={{ type: "spring", stiffness: 88, damping: 18, delay: 0.15 }} whileHover={{ y: -8, rotate: -1 }}>
       <div className="frame-top"><span>full-stack / 2026</span><span>tmq.log</span></div>
       <div className="portrait-lines">C# / .NET<br />React / TypeScript<br />SQL / Redis<br />SignalR / APIs</div>
-      <Image src="/assets/tran-minh-quan.jpg" alt="Tran Minh Quan" fill priority sizes="(max-width: 800px) 80vw, 40vw" className="portrait" />
+      <Image src="/assets/tran-minh-quan.jpg" alt="Tran Minh Quan" fill priority unoptimized sizes="(max-width: 800px) 80vw, 40vw" className="portrait" />
+      <div className="company-badges" aria-label="Companies">
+        {organizations.map((organization) => <Image key={organization.name} src={organization.logo} alt={organization.name} width={42} height={42} unoptimized className="company-logo" />)}
+      </div>
     </motion.div>
     <motion.div className="tech-rail" initial="hidden" whileInView="show" viewport={{ once: true }} variants={{ hidden: {}, show: { transition: { delayChildren: 0.2, staggerChildren: 0.08 } } }}>
       {organizations.map((organization, index) => <motion.div key={organization.name} variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }} transition={{ type: "spring", stiffness: 170, damping: 18 }} whileHover={{ y: -6, backgroundColor: "#1a1d18" }}><span>0{index + 1}</span><Image src={organization.logo} alt={organization.name} width={42} height={42} className="company-logo" /><strong>{organization.name}</strong></motion.div>)}
@@ -95,7 +100,7 @@ function TechSystem({ language }: { language: Language }) {
     ["Backend", ["ASP.NET Core", "C#", "SignalR"]],
     ["Frontend", ["React", "TypeScript", "Next.js", "Tailwind CSS"]],
     [language === "en" ? "Data" : "Dữ liệu", ["SQL Server", "MongoDB", "Redis"]],
-    [language === "en" ? "Workflow" : "Quy trình", ["GitHub"]],
+    [language === "en" ? "Workflow" : "Quy trình", ["GitHub", "GitLab"]],
   ];
   return <section className="tech-system section-grid">
     <Reveal className="tech-system-intro"><p className="eyebrow">04 / {language === "en" ? "Stack" : "Công nghệ"}</p><h2>{language === "en" ? "The tools behind the work." : "Công nghệ đứng sau sản phẩm."}</h2><p>{language === "en" ? "A practical stack for APIs, interfaces, data, and real-time workflows." : "Stack thực dụng cho API, giao diện, dữ liệu và luồng real-time."}</p></Reveal>
