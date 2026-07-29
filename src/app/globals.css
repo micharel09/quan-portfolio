@@ -88,3 +88,8 @@ html, body { background: var(--paper); color: var(--ink); }
 }
 .project-media.fcr span:nth-child(3) { background-image: url("/assets/fpt-telecom.jpg"); }
 .project-media.itd span:nth-child(3) { background-image: url("/assets/itd-solutions.jpg"); }
+.project-media { display: none; }
+.project-row { grid-template-columns: 105px minmax(0, 1fr) 38px; min-height: 220px; }
+.detail-hero { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) { .project-row { grid-template-columns: 72px minmax(0, 1fr) 25px; } }
+@media (max-width: 560px) { .project-row { grid-template-columns: 54px minmax(0, 1fr) 22px; } }
