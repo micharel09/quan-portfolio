@@ -2,7 +2,7 @@
 
 Personal portfolio for **Tran Minh Quan**, a Full-stack Developer. The site presents selected professional work, experience, technical toolkit, and contact paths in a focused case-study format.
 
-**Live site:** [quan-portfolio-ten.vercel.app](https://quan-portfolio-ten.vercel.app)  
+**Live site:** [quan-portfolio-ten.vercel.app](https://quan-portfolio-ten.vercel.app)
 **GitHub:** [@micharel09](https://github.com/micharel09)
 
 ## Highlights
