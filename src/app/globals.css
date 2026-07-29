@@ -106,6 +106,17 @@ html, body { background: var(--paper); color: var(--ink); }
 .project-vds-ai-cctv-weighbridge .detail-hero::after { content: "CASE FILE / 02 · ITD SOLUTIONS · 2026 · REAL-TIME SYSTEMS"; background-image: linear-gradient(0deg, rgba(16,18,17,.96) 0%, rgba(16,18,17,.18) 64%), url('/assets/itd-team.jpg'); background-position: center; background-size: cover; }
 .project-eigakan-movie-sharing-platform .detail-hero::after { content: "CASE FILE / 03 · FPT UNIVERSITY · 2025 · GRADUATION PROJECT"; background-image: linear-gradient(0deg, rgba(16,18,17,.96) 0%, rgba(16,18,17,.18) 64%), url('/assets/eigakan-team.jpg'); background-position: center; background-size: cover; }
 @media (max-width: 900px) { .project-page .detail-hero { grid-template-columns: 1fr; }.project-page .detail-hero::after { min-height: 220px; } }
+@media (min-width: 901px) and (max-height: 1100px) {
+  .hero { padding-top: 5rem; }
+  .hero h1 { font-size: clamp(4.5rem, 7.8vw, 7.5rem); }
+  .hero-actions { margin-top: 24px; }
+}
+@media (max-width: 560px) {
+  .hero-copy { min-width: 0; }
+  .hero-body { max-width: 100%; overflow-wrap: anywhere; }
+  .hero-actions { display: grid; grid-template-columns: 1fr; width: 100%; }
+  .hero-actions .button { width: 100%; }
+}
 .project-media { display: none; }
 .project-row { grid-template-columns: 105px minmax(0, 1fr) 38px; min-height: 220px; }
 .detail-hero { grid-template-columns: minmax(0, 1fr); }
