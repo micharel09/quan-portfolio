@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { Bebas_Neue, DM_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body><ScrollProgress />{children}</body>
     </html>
   );
 }

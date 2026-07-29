@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { PortfolioSite } from "@/components/portfolio-site";
+import { ProjectGallery } from "@/components/project-gallery";
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -39,13 +39,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p>{gallery.label}</p>
             <h2>{gallery.title}</h2>
           </div>
-          <div className={`team-photo-grid team-photo-grid-${gallery.photos.length}`}>
-            {gallery.photos.map((photo) => (
-              <figure key={photo.src}>
-                <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} unoptimized />
-              </figure>
-            ))}
-          </div>
+          <ProjectGallery photos={gallery.photos} />
         </div>
       </section>
     )}

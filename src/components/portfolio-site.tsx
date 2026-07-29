@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import Lenis from "lenis";
 import { FaDatabase, FaTowerBroadcast } from "react-icons/fa6";
 import { DiDotnet, DiMsqlServer, DiRedis } from "react-icons/di";
 import { SiDocker, SiGithub, SiGitlab, SiMongodb, SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
@@ -87,7 +88,42 @@ function Contact({ language }: { language: Language }) {
 }
 
 export function PortfolioSite({ page, slug }: { page: Page; slug?: string }) {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window === "undefined") return "en";
+    const savedLanguage = window.localStorage.getItem("portfolio-language");
+    return savedLanguage === "vi" ? "vi" : "en";
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("portfolio-language", language);
+    document.documentElement.lang = language;
+    document.documentElement.dataset.language = language;
+  }, [language]);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const lenis = new Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+    });
+    let frameId = 0;
+
+    const animate = (time: number) => {
+      lenis.raf(time);
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+    return () => {
+      cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
+  }, []);
+
   const content = page === "home" ? <Home language={language} /> : page === "projects" ? <ProjectsIndex language={language} /> : page === "project" ? <ProjectDetail language={language} slug={slug} /> : page === "about" ? <About language={language} /> : <Contact language={language} />;
   return <main className="portfolio-shell"><Header page={page} language={language} setLanguage={setLanguage} />{content}{page !== "contact" && <Contact language={language} />}<footer className="site-footer"><span>© {new Date().getFullYear()} Tran Minh Quan</span><span>{language === "en" ? "Built with care in Ho Chi Minh City." : "Được xây chỉn chu tại TP. Hồ Chí Minh."}</span></footer></main>;
 }
