@@ -18,7 +18,11 @@ const navItems = [
   { href: "/contact", key: "contact" },
 ] as const;
 
-const organizations = ["FPT Telecom", "ITD Solutions", "FPT Software"];
+const organizations = [
+  { name: "FPT Telecom", logo: "/assets/fpt-telecom.jpg" },
+  { name: "ITD Solutions", logo: "/assets/itd-solutions.jpg" },
+  { name: "FPT Software", logo: "/assets/fpt-software.jpg" },
+];
 
 function text(value: Record<Language, string>, language: Language) {
   return value[language];
@@ -80,7 +84,7 @@ function Hero({ language }: { language: Language }) {
       <Image src="/assets/tran-minh-quan.jpg" alt="Tran Minh Quan" fill priority sizes="(max-width: 800px) 80vw, 40vw" className="portrait" />
     </motion.div>
     <motion.div className="tech-rail" initial="hidden" whileInView="show" viewport={{ once: true }} variants={{ hidden: {}, show: { transition: { delayChildren: 0.2, staggerChildren: 0.08 } } }}>
-      {organizations.map((organization, index) => <motion.div key={organization} variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }} transition={{ type: "spring", stiffness: 170, damping: 18 }} whileHover={{ y: -6, backgroundColor: "#1a1d18" }}><span>0{index + 1}</span><strong>{organization}</strong></motion.div>)}
+      {organizations.map((organization, index) => <motion.div key={organization.name} variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }} transition={{ type: "spring", stiffness: 170, damping: 18 }} whileHover={{ y: -6, backgroundColor: "#1a1d18" }}><span>0{index + 1}</span><Image src={organization.logo} alt={organization.name} width={42} height={42} className="company-logo" /><strong>{organization.name}</strong></motion.div>)}
       <motion.div variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }} transition={{ type: "spring", stiffness: 170, damping: 18 }} whileHover={{ y: -6, backgroundColor: "#1a1d18" }}><span>00</span><strong>{language === "en" ? "Open to collaborate" : "Sẵn sàng hợp tác"}</strong></motion.div>
     </motion.div>
   </section>;
