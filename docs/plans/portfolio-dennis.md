@@ -226,3 +226,162 @@ Kiểm chứng đạt:
 - `npm.cmd run lint`, `npm.cmd run build` (8pages) và `npx.cmd tsc --noEmit` sau build PASS.
 - Playwright-core có sẵn trong REA, Chrome Windows DPR1, EN/VI1440/768/390 ×900: cover/gallery decode đúng nguồn mới q90, lightbox trực tiếp PNG1920 ×2560, Escape đóng, không tràn ngang/pageerror. Thumbnail danh sách và Next case VDS dùng asset mới; cover VDS vẫn q75. Đã xem capture cover và lightbox; capture cover đầu bị loader che vì selector chờ sai, sửa QA chờ `.route-curtain` visibility hidden rồi chạy lại cả ma trận PASS; không sửa app. Chưa kiểm chứng Safari/iPhone thật.
 - Preview production local5380 giữ để user xem. Không tạo worktree/branch; reuse main và quyền push origin/main theo plan. Giữ hai ảnh preview user ngoài commit. Review diff và diff --check trước commit; capture/script/log QA chỉ trong temp task và được dọn trước bàn giao. Bằng chứng commit/ref remote và đồng bộ task tại marker `[eigakan-photo:protected-sharpen-verified:v1]` trên FLY-104; giữ trạng thái Done hiện có theo yêu cầu đối soát task.
+
+## Bổ sung sản phẩm Fly và công nghệ — 2026-10-15 — FLY-106
+
+Task: https://linear.app/fly-group/issue/FLY-106. Đã đối soát toàn bộ project Quan Portfolio (ba task cũ, hasNextPage=false), workspace Fly-Group/team theo `.agents/linear.json`, tạo task nội dung riêng và đọc lại. Preview 5380; không push/deploy. Checkout ban đầu chỉ có hai ảnh user untracked `current-preview.png`, `detail-preview.png`; giữ nguyên.
+
+### Phạm vi và acceptance
+
+Plan ban đầu 11 case; user thu hẹp: “ko mấy project nhỏ đó ko cần liệt kê vào”. Bỏ Jupiter, TIGGO và hai Antrip, còn **7 case**: DJ → Jobs → Labour → PTE → FCR → ITD → Eigakan. Bốn case mới năm2026, EN/VI, brief/contribution/stack/ảnh thật; giữ ba case cũ và lịch sử công việc. About vẫn bổ sung công nghệ có bằng chứng, kể cả Astro, không thêm website case. Home desktop4 featured, tablet/mobile2 tile theo pattern cũ; tổng07. Projects lọc Tất cả/Sản phẩm/Kinh nghiệm & đồ án =7/4/3; category vẫn mô tả lĩnh vực. Next case tuần hoàn theo thứ tự trên. Không thêm dependency, thay backend/public API, repo private hoặc credential trên website.
+
+### Source/revision và attribution
+
+Prefix nguồn `E:/RepoGIt/FlyVisa/`; source mapping chỉ ở plan, không render trên web. Không suy trạng thái production từ source.
+
+| Nguồn | Revision và evidence | Nội dung/đóng góp |
+| --- | --- | --- |
+| Fly_Talent_DJ | a2b8b38c8d03b190072ef1be1e10d464c27bffec; README, frontend/backend package.json, mobile/pubspec.yaml; Quan commits a2b8b38 legal/App Review, f30075c Flutter pricing, 94395c6 form recovery, 6b14c0d booking pricing | React/Vite/NestJS/TypeORM/PostgreSQL/Redis/Socket.IO/Flutter; web, booking, profile/chat và mobile/release preparation. |
+| Fly-Jobs/Fly-Jobs | b300a675c0f13d9f1d480e64fb2c49e476703699; README, docs/CURRENT-STATE.md, manifests, mobile/pubspec.yaml; Quan 054af40 analytics, 9b2824a employer/admin, 7aeef4f mobile flows, b300a67 verified TestFlight17 | Next.js/NestJS/TypeORM/PostgreSQL/Redis/BullMQ/GCS/Flutter. Không dùng bản fly-jobs-* cũ bên ngoài Git root. |
+| Fly-labour | 7f8ebf6ce192368498b5a504b7b812cc720a1d0b; frontend/backend/mobile manifests; Quan bcf910a8 Liên Việt catalog, bac11947 pricing, d644a69b showcase, 191a202e topic menus | Stack dự án React/NestJS/PostgreSQL/React Native/Expo. Đóng góp trực tiếp giới hạn showcase/pricing/certificate catalog web/backend; không nhận phát triển mobile vì lịch sử mobile đọc được thuộc tác giả khác. |
+| Fly_PTE | 4f557e76c833a597abb883627ee757141a4d7bfd; README, frontend/backend manifests, python-scorer/requirements.txt, capacitor.config.ts, codemagic.yaml; Quan 4f557e7 recording dài, 03bb174 scoring pending, 4613fd1 Gemini JSON, 774f909 scoring/transcripts | React/Vite/NestJS/PostgreSQL/Python/FastAPI/Gemini/Whisper/Capacitor; chấm điểm hỗ trợ AI, không cam kết độ chính xác. |
+| Astro | Fly-Jupiter/Jupiter eaf90c65c7498610bb76260720bf662b5e27f1e9, package.json/astro.config.mjs và Quan industry imagery; fly-antrip/package.json xác nhận Astro/TypeScript nhưng folder không có Git metadata | Chỉ kỹ năng About; không tạo case website nhỏ. |
+| Case cũ | portfolio-data.ts/portfolio-media.ts tại HEAD đầu task | Giữ copy, slug, năm, tone, stack và ảnh; thêm group experience và đánh số theo thứ tự mới. |
+
+Ảnh public Chromium mới không đăng nhập,1440×1000 DPR1: DJ `https://fly-dj-app-production.up.railway.app/`; Jobs `https://frontend-production-be24.up.railway.app/`; Labour `https://flytalentbridge.vn/`; PTE `https://flypte.up.railway.app/login`. PTE URL được tìm trong script QA cũ `E:/CodexTemp/Fly_PTE/railway-reconnect/public-smoke.cjs`, xác minh lại bằng navigation thật; không chạy script cũ có POST login. Chỉ bỏ qua onboarding, xác nhận consent localStorage của browser tạm để tới login (đối chiếu MOnboardingGate); không nhập/submit credential. Mask browser cho data-private/input có dữ liệu; login cuối có các field rỗng nên giữ UI. Asset WebP quality90; cover/gallery q90, lightbox/thumbnail/Next dùng đầy đủ. Jobs chờ Sign in và search thật thay skeleton. Đổi tên hai asset cuối `fly-jobs-home.webp`, `fly-pte-login.webp` để tránh cache ảnh tối ưu của capture thử trước.
+
+### Mapping và checkpoint
+
+Tái sử dụng Dennis pattern/reference đã duyệt ở phần trước. `portfolio-data.ts`/`portfolio-media.ts` → ProjectCollection (input projects, group filter, row/preview/offset chung visible); Home input featured; ProjectDetail/ProjectGallery/Footer Next dùng cùng media. Optional tone giữ style cũ, case mới dùng layout chung. Không thêm motion/layout mới. Đọc local Next16 docs 01-app/01-getting-started/12-images.md; quality90 đã allowlist.
+
+Đã tích hợp bảy case EN/VI, About/capabilities/skillGroups, giữ experience. Lint/tsc/build đầu PASS. QA Chromium reduced motion EN/VI1440/768/390×900 PASS: Home4/2 tile, total07; filter7/4/3; preview strip count khớp; list/grid; tất cả7 route status200; ảnh cover decode và q90 case mới; Next đúng thứ tự; gallery/full asset/Escape/focus return; About skills/history; không pageerror/tràn ngang. Đã xem ảnh desktop/mobile list, detail và lightbox. Lỗi QA đầu: mask cần array; chụp trước entrance; PTE onboarding chặn login; chờ h1/Log in sai selector; decode lazy image ẩn chờ vô hạn. Đã sửa điều kiện công cụ, không đổi app để hợp thức hóa. Login cuối bỏ mask màu hồng ở field rỗng. Còn kiểm chứng normal-motion hover/filter/featured, build cuối sau tên asset đổi và review diff.
+
+Temp task `E:/CodexTemp/quan-portfolio/fly-content` giữ script/capture/log để hoàn tất, dọn sau khi lưu kết quả chữ. Không tạo branch/worktree; reuse checkout hiện có. Không đụng GitHub profile README.
+
+### Kết quả cuối và bàn giao
+
+- PASS `npm.cmd run lint`, `npm.cmd run build` (compile, TypeScript, static pages và dynamic case route), `npx.cmd tsc --noEmit` sau build cuối; `git diff --check` không lỗi whitespace. Chỉ có warning Git LF→CRLF theo cấu hình hiện có.
+- PASS Chromium Windows DPR1, reduced motion, EN/VI ×1440/768/390×900 trên build cuối: toàn bộ bảy route200; 4/2 Home tile; total07; filter7/4/3; list/grid; row và preview count; cover decode/q90; Next case tuần hoàn; gallery asset đầy đủ, Escape và trả focus; About không tràn ngang, giữ3 mục lịch sử; không pageerror. Đã xem capture list desktop/tablet/mobile, grid VI, case DJ mobile, lightbox PTE mobile và About VI390. Ảnh screenshot giữ crop của pattern cũ, gallery/lightbox cho xem đầy đủ; không đổi layout hoặc motion.
+- PASS normal motion1440: hover cả14 vị trí qua ba nhóm và4 featured Home; offset preview kết thúc đúng index/chiều cao tile, asset đúng slug sau lọc. Filter fade/list/grid/đổiVI, click case PTE → Next FCR → Back đạt, không pageerror. Bài QA đầu dùng locator tự scroll Next trong footer parallax nên case-story che pointer; sửa công cụ dùng wheel thật tới cuối trang, đợi Lenis ổn định rồi click; không force/JS click hoặc sửa app. Một assert text ban đầu không tính newline của sup đã sửa dùng textContent. Không dùng lỗi selector/tool làm kết luận regression.
+- Đối chiếu dữ liệu với HEAD bằng TypeScript transpile/so sánh object: ba case cũ chỉ đổi số thứ tự và thêm group; toàn bộ copy/slug/stack/tone/năm nguyên vẹn. Experience khớp tuyệt đối; bảy slug duy nhất. Bốn WebP1440×1000 đúng metadata, tổng≈345KB; source screenshot đã xem và không có credential/dữ liệu riêng. Hai preview user giữ nguyên, không đưa vào thay đổi task. Review diff không có dependency/config/backend/refactor ngoài phạm vi.
+- Giới hạn: kiểm chứng Chromium Windows và viewport responsive, chưa kiểm chứng Safari/iPhone thật; không xác nhận production parity hay tình trạng phát hành của sản phẩm Fly.
+
+Acceptance đã đạt theo phạm vi user thu hẹp; giữ preview production local `http://localhost:5380` (PID26108), không commit/push/deploy. Không tạo branch/worktree. Đã đóng browser QA; temp `E:/CodexTemp/quan-portfolio/fly-content` được kiểm tra absolute path/reparse point và dọn sau khi lưu kết luận này; trạng thái xác nhận dọn và task Done đọc lại tại Linear marker `[portfolio-fly-content:verified:v1]`.
+
+## Giữ ba dự án cũ trên homepage, bỏ Fly PTE — FLY-111
+
+Plan user duyệt ngày 2026-10-15: homepage FCR → ITD → Eigakan đủ ba ở 1440/768/390; Projects sáu case DJ → Jobs → Labour → FCR → ITD → Eigakan, filter6/3/3, CTA06 và Next tuần hoàn. Bỏ case/mapping/asset PTE, slug404; giữ About, nội dung/ảnh cũ, Dennis và hai preview user. Không push/deploy.
+
+Reuse `portfolio-data.ts` featured → `portfolio-site.tsx` Home → `ProjectCollection` nhận danh sách riêng; preview dùng chính danh sách đã lọc. Bỏ giới hạn home-extra-project tại collection/CSS để tablet/mobile dùng grid hiện có cho đủ ba. Không thêm pattern/token/motion.
+
+Checkpoint: đã xác minh checkout dirty, bảo toàn thay đổi trước; đã chuyển featured, bỏ PTE và đánh số01–06. Đang kiểm chứng lint/TypeScript/build và runtime EN/VI1440/768/390, hover/list/grid/gallery/Escape/slug/Next. Temp `E:/CodexTemp/quan-portfolio/home-six` giữ bản trước sửa và QA; dọn sau lưu kết quả. Preview5380 hiện là build cũ, sẽ thay bằng build cuối.
+
+### Kết quả FLY-111
+
+- PASS `npm.cmd run lint`, `npm.cmd run build`, `npx.cmd tsc --noEmit`, `git diff --check` (chỉ warning LF→CRLF có sẵn). Review diff với bản trước lượt này: chỉ data/media/collection/CSS và checkpoint đổi; bảo toàn code dirty cũ và hai ảnh preview.
+- PASS Chromium Windows DPR1 EN/VI ×1440/768/390×900: homepage đúng FCR/ITD/Eigakan, cả ba row visible và ảnh decode; CTA06. Projects sáu row theo thứ tự, filter6/3/3 và từng nhóm đúng slug; desktop list/grid; không tràn ngang. Đã xem full-page Home cả ba viewport, Projects390VI và grid1440VI: grid tablet hai cột với Eigakan hàng sau, mobile một cột đủ ba, giữ crop/layout cũ.
+- PASS cả sáu detail status200 ở mọi locale/viewport, ảnh gallery decode; Escape đóng và trả focus, FCR ArrowRight đổi ảnh; Next href vòng DJ→Jobs→Labour→FCR→ITD→Eigakan→DJ. `/projects/fly-pte`404. Không pageerror trong flow.
+- PASS normal motion1440: hover3 Home và6/3/3/6 row của danh sách/các nhóm, strip count/asset/offset đúng; list↔grid, click DJ và Next→Jobs bằng pointer thật. Không pageerror.
+- Đối chiếu object trước/sau bằng TypeScript transpile: mọi case giữ nguyên nội dung trừ number/featured; export About/capabilities/skills/history/copy khớp tuyệt đối. Không còn Fly PTE/slug/mapping trong src, asset riêng đã xóa. Không đổi dependency, token hoặc motion.
+- Lỗi công cụ QA đầu đã sửa: curtain idle là hidden nên chờ attached; work-label mobile ẩn nên scroll row; hover sau filter phải chờ collection hoàn tất entrance và đưa pointer ra trước. Không sửa app/expectation để che lỗi hành vi.
+- Giới hạn: Chromium Windows/responsive; chưa kiểm chứng Safari/iPhone thật. Preview build cuối `http://localhost:5380` PID29460; không commit/push/deploy, không tạo branch/worktree.
+
+Acceptance FLY-111 đã đạt. Capture/script/backup trong temp home-six sẽ dọn sau lưu kết luận; giữ preview5380 cho user xem.
+Đã kiểm tra absolute path/reparse point, dọn temp home-six và xác nhận Test-Path=False. Giữ server5380; không có tài nguyên branch/worktree mới cần dọn.
+
+## Đồng bộ tab và icon công nghệ — 2026-10-15 — FLY-112
+
+Plan user duyệt: title **Trần Minh Quân — Full-stack Developer**, đồng bộ tên OG/Twitter; TMQ trắng nền ink Dennis, bỏ favicon cạnh tranh. About và sáu detail dùng mapping/component react-icons chung, currentColor20px/gap8px, aria-hidden không focus; giữ dữ liệu/nhóm/thứ tự và layout. About dùng list wrap, detail giữ list. Không thêm dependency, đổi ảnh OG, push/deploy.
+
+Nguồn: globals.css ink#1c1d20/paper#fff; portfolio-pages.tsx/CSS giữ pattern Dennis đã duyệt. Component technology.tsx dùng logo chính xác từ react-icons; Oracle/Oracle SQL dùng GrOracle, React/React Native dùng SiReact. Entity Framework dùng database, BullMQ queue/list, SignalR/real-time broadcast, Whisper AI và TestFlight test chức năng khi không có logo phù hợp. Không thay logo thương hiệu khác. Data stack string[] nguyên vẹn.
+
+Checkpoint: đã sửa metadata, SVG và bỏ app/favicon.ico; tích hợp Technology vào About/case. Đang lint/build/TypeScript và QA EN/VI1440/768/390, direct/reload/navigation metadata/icon endpoint. Giữ dirty trước task và hai preview user. Temp E:/CodexTemp/quan-portfolio/tech-icons chứa backup/QA, dọn trước bàn giao; preview5380 cần khởi động build mới.
+
+### Kết quả FLY-112
+
+- PASS npm.cmd run lint, npm.cmd run build bản cuối, npx.cmd tsc --noEmit sau build, git diff --check. Build đầu bị phát hiện metadata chưa thay đúng do encoding của Node qua pipe PowerShell; đã sửa bằng patch UTF-8 và build lại, runtime xác nhận đúng dấu tiếng Việt.
+- PASS Chromium Windows DPR1: About + sáu detail × EN/VI ×1440/768/390×900 =42 tổ hợp. Đối chiếu text/thứ tự trực tiếp với skillGroups/project.stack, mọi mục có SVG20×20, gap8px, aria-hidden/focusable=false; không overflow trang hoặc item. Reload42 lượt, title đúng, đúng một favicon /portfolio-mark.svg; OG/Twitter đúng tên. Normal-motion pointer navigation About→Projects đúng title/icon; SVG endpoint200, ink/trắng không còn vàng, không pageerror. Preview production5380 chạy build cuối.
+- Đã xem capture VI About và case Jobs cả ba viewport; icon đơn sắc căn hàng, Google Cloud Storage/Entity Framework xuống dòng tại768px, giữ trục chữ và không tràn. Capture có skip-link do focus main của navigation; bổ sung blur capture để quan sát nội dung bị overlay, không sửa hành vi ngoài phạm vi. Runtime/icon mapping bao phủ sáu case và tất cả nhóm About. Chưa kiểm chứng Safari/iPhone thật.
+- Review diff với bản trước task: portfolio-pages.tsx chỉ thêm import và hai consumer Technology; CSS chỉ thêm list/icon; metadata/SVG và xóa favicon mặc định đúng phạm vi. Data/ảnh/dependency/motion và dirty trước task giữ nguyên; không sửa ảnh OG, không commit/push/deploy. Không tạo branch/worktree. Capture/script/backup temp sẽ dọn sau ghi kết luận và đóng browser; giữ preview5380 cho user.
+Đã đọc lại FLY-112 Done và marker verified; kiểm tra absolute path/reparse point rồi dọn temp tech-icons, xác nhận không còn. Giữ preview5380 build cuối; không có branch/worktree mới cần dọn.
+
+## Đổi ảnh About — 2026-10-15 — FLY-113
+
+User gửi JPEG tại Downloads/812c2a4c-2cd6-491c-943e-39ea44936e15.jpg, yêu cầu thay ảnh lớn /about. Copy nguyên bản sang public/assets/tran-minh-quan-about.jpg, SHA256 cả nguồn/đích46E723455EDBCD0BE97D18154A2D97A1308FA7783CCAA4C157E6D0B43B80E18F. Không xử lý ảnh. aboutPortrait riêng trong portfolio-media.ts → About; giữ portrait cho Contact/footer và heroPortrait cho Home. Reuse layout/parallax/crop Dennis hiện có, không đổi CSS/dependency.
+
+Đang lint/build và QA ảnh1440/768/390 trước restart preview5380. Giữ dirty có sẵn; không commit/push/deploy. Temp E:/CodexTemp/quan-portfolio/about-photo chứa QA/capture, dọn sau ghi kết luận.
+
+Kết quả FLY-113: PASS lint, production build, TypeScript độc lập sau build, diff --check. Chromium Windows normal motion1440/768/390×900: /about200, ảnh mới decode/source đúng, không tràn ngang/pageerror; đã xem capture ba viewport, khuôn mặt đầy đủ và crop theo layout cũ. Asset copy hash khớp tuyệt đối nguồn. Preview5380 đã restart build cuối; không đổi ảnh Home/Contact/footer, CSS hay dependency. Chưa kiểm chứng Safari/iPhone thật. Đã đóng browser QA và sẽ dọn temp sau ghi kết luận; giữ server preview cho user.
+Đã đọc lại FLY-113 Done, kiểm tra path/reparse point và dọn temp about-photo, xác nhận không còn. Giữ preview5380; không tạo branch/worktree.
+
+## Link Preview và màu thương hiệu công nghệ — 2026-10-15 — FLY-114
+
+Task: https://linear.app/fly-group/issue/FLY-114. Đối soát toàn bộ project Quan Portfolio (hasNextPage=false), workspace/team/project đúng `.agents/linear.json`; tạo và đọc lại task In Progress. Reuse checkout hiện tại, giữ toàn bộ dirty từ FLY-106/111/112/113 và hai ảnh preview user. Không push/deploy.
+
+### Contract và mapping đã duyệt
+
+- About và sáu detail dùng chung `technology.tsx`: giữ nguyên `string[]`, nhóm/thứ tự/tên, icon chức năng và bố cục/ảnh About. Mapping bổ sung URL chính thức, màu và WebP theo từng URL. React/React Native và Oracle/Oracle SQL cùng logo/màu, tài liệu riêng. Real-time events → MDN DOM events, màu ink. Thương hiệu monochrome dùng ink.
+- Nguồn implementation: https://ui.aceternity.com/registry/link-preview.json (đọc2026-10-15), static variant → `link-preview.tsx` → Technology ở hai consumer hiện có trong `portfolio-pages.tsx`. Reuse Radix Hover Card, open50ms/close100ms, appearance spring260/20 từ opacity0/y20/scale0.6 đến1/0/1; cursor spring100/15 và offset một nửa khoảng cách tới tâm. Dùng `framer-motion`12.43 có sẵn; chỉ thêm dependency trực tiếp `@radix-ui/react-hover-card`1.2.1, không qss/Microlink/motion package khác.
+- Adaptation được plan duyệt: portal, collision padding32px (dự phòng20px chuyển động ngang), currentTarget tránh đổi tâm giữa SVG/tên, giới hạn x±20px; target_blank/noopener/noreferrer cho trigger/preview; focus/Escape/blur; chạm dùng native anchor, chặn riêng Radix touchstart cancellation qua capture; reduced motion chỉ fade; lỗi ảnh hiện tên/domain. Ảnh tải eager khi popover được mở. Content theo lifecycle Radix như nguồn để preview cũ không tồn tại chồng lên nhau sau đóng.
+- Màu từ Simple Icons16.0.0: https://cdn.jsdelivr.net/npm/simple-icons@16.0.0/index.js (metadata `hex`/`source`), màu Microsoft/.NET và sản phẩm thiếu logo theo identity tương ứng. Điều chỉnh RGB tối dần cùng tông đến≥4.5:1 trên #e9eaeb; trắng cũng được kiểm tra runtime. Icon dùng cùng currentColor với tên. Không tạo token/theme cạnh tranh.
+- 43 URL/ảnh600×375 DPR1, Chrome, WebP85 tại `public/assets/technology/`, hiển thị200×125. Mapping URL→ảnh lưu ngay trong Technology. Capture trang công khai, đóng consent khi có control thực; không đăng nhập. Whisper trên openai.com bị403/Cloudflare nên dùng URL và ảnh **repository chính thức https://github.com/openai/whisper**, không dùng ảnh website khác cho URL bị lỗi. MDN Events và Oracle SQL có redirect chính thức; giữ URL tài liệu trong mapping, capture destination tương ứng.
+
+### Checkpoint
+
+- PASS lint, TypeScript và production build ban đầu; QA Chromium Windows EN/VI1440/768/390×900:42 tổ hợp, đủ tên/thứ tự/link/icon, contrast≥4.5:1 và không tràn ngang. Tất cả43 WebP decode600×375 đúng URL, About38 mục và5 mục chỉ xuất hiện ở case.
+- Đã quan sát demo Aceternity runtime1440×900: hover Tailwind CSS mở phía trên, wrapper212×137 (image200×125 + padding/border), đối chiếu hình dạng/shadow/source spring. Capture trong task-temp; không khẳng định tốc độ khung hình.
+- QA phát hiện portal forceMount giữ các preview cũ lúc chạy exit khi hover nhanh: sửa lifecycle Content theo mã nguồn (AnimatePresence nằm trong Content, không forceMount), build lại. PASS hover/spring ngang, chuyển vào preview/click mở tab mới/no opener; hover nhanh ownership; Tab/Shift+Tab/Escape/blur; collision flip và nằm trong viewport1440/768/390.
+- Lỗi công cụ đã xử lý: Next Image normalize src thành absolute nên so pathname; tách QA server khỏi session test; kiểm tra reduced motion khi load đúng preference (hook Framer giữ preference lúc mount). Chưa kết luận touch/fallback/reduced motion cuối; đang QA lại. Temp riêng `E:/CodexTemp/quan-portfolio/tech-preview`, dọn sau khi lưu kết quả. Preview5380 đang phục vụ build mới; final lint/TypeScript/diff review còn chờ.
+
+### Kết quả cuối
+
+- PASS normal-motion Chromium: hover nhanh chỉ preview cuối; spring ngang có dịch chuyển đo được; chuyển chuột vào preview vẫn mở, click mở đúng URL ở tab mới và `window.opener === null`. Tab/Shift+Tab chuyển link đúng thứ tự, Escape đóng và rời focus đóng. Preview portal200×125 nằm trong viewport1440/768/390, sát mép trên tự đổi phía xuống dưới. Đã xem capture About desktop/mobile và case nền xám, đối chiếu demo Aceternity.
+- PASS reduced motion khi tải trang với OS preference reduce: không translate/scale, chỉ opacity. Chặn ảnh React bằng network interception: preview hiện React + react.dev và href gốc còn đúng. Chromium mobile390/isMobile/hasTouch: chạm đầu tiên mở URL chính thức ở tab mới, không mở preview, không cần chạm lần hai. Chưa kiểm chứng Safari/iPhone thật; không suy kết quả từ giả lập sang thiết bị thật.
+- 43 ảnh sản phẩm tổng772,496 bytes; dùng chung giữa các consumer. Review ảnh600×375, đóng consent bằng control website khi có; không sửa DOM để dựng website giả. BullMQ dùng ink sau đối chiếu logo monochrome chính thức tại https://bullmq.io/images/bullmq-logo.png (không dùng đỏ suy đoán). Giữ functional icon đã chọn.
+- Final build PASS (Next16.2.12 compile/TypeScript/static routes/dynamic cases); final lint, `npx.cmd tsc --noEmit` và `git diff --check` PASS. Sau màu BullMQ cuối, restart production5380 và chạy lại đủ42 tổ hợp cùng toàn bộ interaction/fallback/touch checks: PASS, không pageerror. Review scope: chỉ mapping/component/CSS preview, package/lock thêm Radix và plan; không ghi lại data/layout/ảnh About hoặc dirty khác. Không commit/push/deploy.
+- Đối chiếu runtime motion bằng MutationObserver + requestAnimationFrame Chromium1440×900 normal motion: source mở86ms/đóng118.8ms, local77.9ms/113.8ms (bao gồm render/scheduling; cấu hình vẫn50/100ms). Source49 và local59 mẫu, state đầu opacity0/scale≈0.6/y≈20, cuối opacity1/scale1/y0 ở≈850ms; cursor gần tâm nên x≈0. Không suy frame rate hay đồng nhất tuyệt đối từ số mẫu. Lần đo local đầu thất bại vì server cũ còn giữ build trước; restart đúng build và đo lại thành công, không đổi acceptance/code để che lỗi.
+- Đã đóng các browser QA thành công; kiểm tra absolute path và không có reparse point trước dọn temp `E:/CodexTemp/quan-portfolio/tech-preview`. Preview5380 cuối chạy riêng, không giữ log/capture trong temp. Linear final marker `[portfolio-tech-preview:verified:v1]`; phần cleanup và đọc lại Done được xác nhận trước bàn giao.
+
+## Link Preview trong ba mô tả năng lực — 2026-10-15 — FLY-116
+
+Task: https://linear.app/fly-group/issue/FLY-116. Đã đọc đầy đủ project (hasNextPage=false), xác minh mapping và đọc lại In Progress. Reuse checkout dirty, không tạo branch/worktree, không push/deploy.
+
+Mapping: `technology.tsx` mapping và `Technology` hiện có → `TechnologyText(text)` tách chuỗi bằng tên đã escape regex, ưu tiên dài trước → ba `capabilities` tại `portfolio-pages.tsx`. Giữ riêng React Native/Expo, Python/FastAPI với dấu `/`; giữ nguyên data, câu chữ, tiêu đề, CSS/layout, dependency và ảnh. Dùng nguyên LinkPreview và contract FLY-114.
+
+Checkpoint: implementation hoàn tất; lint, TypeScript, production build và diff check PASS. Preview5380 đã restart build mới (PID18428). QA Chromium EN/VI1440 đã đạt text nguyên vẹn, 23 link (5/8/10), icon/màu/URL, ảnh hover đúng và không tràn ngang; đang kiểm tra768/390 và tương tác. Temp `E:/CodexTemp/quan-portfolio/capability-preview` giữ bản trước sửa và capture/script QA, dọn sau lưu kết quả.
+
+### Kết quả FLY-116
+
+- PASS `npm.cmd run lint`, `npx.cmd tsc --noEmit` trước và sau production build, `npm.cmd run build`, `git diff --check` (chỉ warning LF→CRLF có sẵn).
+- PASS Chromium Windows EN/VI ×1440/768/390×1000: textContent cả ba đoạn khớp tuyệt đối dữ liệu nguồn, 23 link (5/8/10) đúng tên/icon/màu/URL; React Native không bị tách thành React, các dấu `/` nguyên vẹn. Hover toàn bộ23 link ở cả6 tổ hợp: đúng ảnh mapping, ảnh tải/decode, đóng khi rời chuột, không pageerror hay tràn ngang. Đã xem capture đủ6 tổ hợp: giữ ba cột desktop/tablet, mobile một cột và wrap phù hợp pattern hiện có.
+- PASS normal motion1440: chuyển vào preview vẫn mở, click preview mở đúng URL Microsoft ở tab mới và opener=null; focus mở, Escape đóng, Tab sang đúng link tiếp. PASS Chromium mobile390 isMobile/hasTouch: chạm một lần mở tab mới, không bật preview. Giới hạn: chưa kiểm chứng Safari/iPhone thật.
+- Review diff với bản trước lượt này: chỉ thêm renderer9 dòng trong Technology và đổi import/render ba mô tả ở portfolio-pages, cùng checkpoint này. Không đổi data, CSS, dependency, ảnh hoặc dirty có sẵn. Không commit/push/deploy.
+- Giữ preview production local http://localhost:5380/about chạy build cuối. Browser QA đã đóng; temp được dọn sau khi lưu kết quả này. Linear marker `[portfolio-capability-preview:verified:v1]`.
+
+## Làm rõ năng lực và bỏ logo C# lặp — 2026-10-15 — FLY-118
+
+Task: https://linear.app/fly-group/issue/FLY-118. Đã xác minh mapping workspace/project/team, đọc đủ task project (hasNextPage=false); đây là acceptance mới sau FLY-116. Giữ checkout dirty và hai preview user, không tạo branch/worktree, không push/deploy.
+
+Plan user duyệt: giữ ba tiêu đề, thay đúng mô tả EN/VI về backend, web/mobile và dữ liệu/realtime/AI. Giữ đủ danh sách kỹ năng, thêm Google Play Console ngay sau TestFlight. Mapping `technology.tsx` optional icon → C# chỉ tên/màu/link/preview; các icon khác giữ nguyên. Google Play dùng SiGoogleplay, ink#1c1d20, https://google.play/business/ và ảnh public600×375 WebP chụp trực tiếp trang chính thức ngày2026-10-15. Reuse TechnologyText/LinkPreview/CSS/interaction hiện có, không đổi API/dependency/layout.
+
+Checkpoint: đã sửa portfolio-data.ts, technology.tsx và thêm public/assets/technology/google-play-console.webp; ảnh nguồn được xem, không consent che. Lint và TypeScript PASS; build đang chạy. QA sẽ kiểm tra EN/VI1440/768/390, text/title/wrap, About/VDS C#, preview Google Play và bàn phím/tab mới/touch. Temp E:/CodexTemp/quan-portfolio/capability-copy có backup trước sửa và script/capture, dọn sau lưu kết quả.
+
+QA phát hiện VI1440 dấu chấm sau BullMQ xuống dòng riêng vì anchor inline-flex là một box độc lập. Đã nhóm tên công nghệ và dấu câu liền sau trong TechnologyText bằng span nowrap; giữ nguyên textContent, tên/link, public API, CSS file và bố cục. Đây là sửa wrap trong acceptance, không đổi copy đã duyệt. Chạy lại build/check và toàn bộ sáu tổ hợp sau thay đổi.
+
+Lỗi script QA đã xác minh: Next render src ảnh absolute nên so pathname; Tab rời Google Play chuyển đúng sang PostgreSQL và mở preview mới (không phải đóng mọi preview). Sửa điều kiện kiểm tra theo focus/href thật, không sửa app để che lỗi. Browser sẵn có chromium1243 được dùng bằng executablePath do cache Playwright CLI đòi1248 chưa cài; không thêm dependency/toolchain.
+
+### Kết quả FLY-118
+
+- PASS final `npm.cmd run lint`, `npm.cmd run build`, `npx.cmd tsc --noEmit` sau build; `git diff --check` và no-index diff check hai file source với backup trước sửa (chỉ warning LF→CRLF có sẵn).
+- PASS Chromium Windows EN/VI ×1440/768/390×1000: ba body/title khớp source tuyệt đối, 15 link năng lực (3/6/6); hover từng link tải ảnh thật đúng href. Google Play có cả mô tả lẫn skills, ảnh WebP600×375 decode thành công. Không tràn ngang; đã xem ảnh desktop/tablet và toàn section mobile. BullMQ + dấu chấm giữ cùng dòng sau sửa. Capture VI1440 đầu có dấu hiệu paint chưa ổn định; chụp lại sau fonts.ready và đối chiếu DOM x của article/title/number115.19/543.98/972.80 đúng ba cột, ảnh cuối đúng bố cục.
+- PASS About và VDS ở đủ sáu tổ hợp: C# đúng một tên, không svg, href/preview cũ còn tải được; VDS bốn công nghệ khác giữ icon. Đối chiếu exports bằng TypeScript transpile: mọi dữ liệu ngoài capabilities/skillGroups nguyên vẹn, title không đổi, skills cũ giữ đủ/thứ tự; chỉ thêm Google Play Console sau TestFlight.
+- PASS normal-motion1440 Google Play: hover và chuyển vào preview giữ mở, click mở đúng https://google.play/business/ ở tab mới, opener=null; focus/Tab/Shift+Tab/Escape đúng, Tab sau Google Play sang PostgreSQL và đổi preview đúng href. PASS mobile Chromium390 isMobile/hasTouch: một chạm mở đúng tab mới, không mở hover preview. Không pageerror trong các flow. Giới hạn: chưa kiểm chứng Safari/iPhone thật.
+- Review diff so bản trước task: chỉ portfolio-data.ts, technology.tsx, asset Google Play mới và checkpoint này. Không đổi CSS file, public API, dependency hoặc dirty cũ; không commit/push/deploy. Preview cuối http://localhost:5380/about PID28272 giữ cho user xem. Không tạo branch/worktree.
+- Acceptance đạt; browser QA đã đóng. Dọn riêng temp capability-copy sau lưu kết luận, giữ hai ảnh preview user và temp của công việc khác. Linear final marker `[portfolio-capability-copy:verified:v1]`.
+Đã xác minh absolute path/reparse point, dọn temp capability-copy và xác nhận Test-Path=False. Giữ server5380 build cuối để review.
+
+## Phát hành bản portfolio đã duyệt — 2026-10-15 — FLY-119
+
+User đã yêu cầu đưa bản hiện tại lên GitHub và làm bản chính, thay giới hạn không push/deploy của các task trước. Xác minh repo micharel09/quan-portfolio, origin đúng URL, default branch main; fetch origin cho HEAD=origin/main=d901544 trước commit, không cần merge/rebase. Vercel liên kết project quan-portfolio, push main tự triển khai Production.
+
+Scope release: toàn bộ implementation/asset đã duyệt FLY-106/111/112/113/114/116/118 và checkpoint; giữ current-preview.png/detail-preview.png ngoài commit. Không đổi source trong lượt phát hành. Dùng lại lint/TypeScript/build và QA cuối FLY-118 do source/config/dependency không đổi; review diff release xác nhận đúng các thay đổi đã ghi. Stage explicit source/package/product assets/plan, diff check và kiểm tra asset trước commit; push thường main, đối chiếu SHA GitHub và deployment, smoke production trước Done. Không tạo branch/worktree hoặc deploy thủ công cạnh tranh Git integration.

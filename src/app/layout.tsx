@@ -6,19 +6,19 @@ import "./globals.css";
 const sans = Manrope({ variable: "--font-sans", subsets: ["latin", "vietnamese"] });
 
 export const metadata: Metadata = {
-  title: "Tran Minh Quan — Full Stack Developer",
-  description: "Portfolio of Tran Minh Quan, a full-stack developer based in Ho Chi Minh City.",
+  title: "Trần Minh Quân — Full-stack Developer",
+  description: "Portfolio of Trần Minh Quân, a full-stack developer based in Ho Chi Minh City.",
   metadataBase: new URL("https://quan-portfolio-ten.vercel.app"),
   icons: { icon: "/portfolio-mark.svg" },
   openGraph: {
-    title: "Tran Minh Quan — Full Stack Developer",
-    description: "Portfolio of Tran Minh Quan, a full-stack developer based in Ho Chi Minh City.",
+    title: "Trần Minh Quân — Full-stack Developer",
+    description: "Portfolio of Trần Minh Quân, a full-stack developer based in Ho Chi Minh City.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tran Minh Quan — Full Stack Developer",
-    description: "Portfolio of Tran Minh Quan, a full-stack developer based in Ho Chi Minh City.",
+    title: "Trần Minh Quân — Full-stack Developer",
+    description: "Portfolio of Trần Minh Quân, a full-stack developer based in Ho Chi Minh City.",
   },
 };
 

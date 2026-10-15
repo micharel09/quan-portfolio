@@ -14,6 +14,7 @@ import { ProjectCollection } from "./project-list";
 import { About, Contact, ProjectDetail } from "./portfolio-pages";
 
 type Page = "home" | "projects" | "project" | "about" | "contact";
+const featuredProjects = projects.filter((project) => project.featured);
 const navItems = ["/", "/projects", "/about", "/contact"];
 
 function LanguageSwitch() {
@@ -59,11 +60,11 @@ function Hero({ language }: { language: Language }) {
 }
 
 function Home({ language }: { language: Language }) {
-  return <><Hero language={language} /><section className="home-intro medium-container section-space"><h2><RevealText>{copy.hero.title[language]}</RevealText></h2><div><p data-fade>{copy.hero.body[language]}</p><div className="intro-button-position"><div data-parallax data-speed="2"><MagneticLink href="/about" className="round-button dark-button">{language === "en" ? "About me" : "Về mình"}</MagneticLink></div></div></div></section><section className="work-section wide-container"><p className="label work-label">{language === "en" ? "Recent work" : "Dự án gần đây"}</p><ProjectCollection language={language} home /><div className="more-work"><MagneticLink href="/projects" className="pill-button" strength={25} textStrength={15}>{copy.action.allProjects[language]}<sup>{String(projects.length).padStart(2, "0")}</sup></MagneticLink></div></section></>;
+  return <><Hero language={language} /><section className="home-intro medium-container section-space"><h2><RevealText>{copy.hero.title[language]}</RevealText></h2><div><p data-fade>{copy.hero.body[language]}</p><div className="intro-button-position"><div data-parallax data-speed="2"><MagneticLink href="/about" className="round-button dark-button">{language === "en" ? "About me" : "Về mình"}</MagneticLink></div></div></div></section><section className="work-section wide-container"><p className="label work-label">{language === "en" ? "Recent work" : "Dự án gần đây"}</p><ProjectCollection projects={featuredProjects} language={language} home /><div className="more-work"><MagneticLink href="/projects" className="pill-button" strength={25} textStrength={15}>{copy.action.allProjects[language]}<sup>{String(projects.length).padStart(2, "0")}</sup></MagneticLink></div></section></>;
 }
 
 function ProjectsIndex({ language }: { language: Language }) {
-  return <><section className="page-heading medium-container"><h1 data-once>{copy.section.selected[language]}</h1></section><section className="wide-container work-section index-section"><ProjectCollection language={language} /></section></>;
+  return <><section className="page-heading medium-container"><h1 data-once>{copy.section.selected[language]}</h1></section><section className="wide-container work-section index-section"><ProjectCollection projects={projects} language={language} /></section></>;
 }
 
 function Footer({ language, page, slug }: { language: Language; page: Page; slug?: string }) {

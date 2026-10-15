@@ -1,27 +1,31 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef, useState } from "react";
-import { projects, type Language } from "@/lib/portfolio-data";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { type Project, type Language } from "@/lib/portfolio-data";
 import { projectPhotos } from "@/lib/portfolio-media";
 import { gsap, motionTokens, ScrollTrigger } from "@/lib/motion";
 import { SiteLink } from "./site-link";
 import { Arrow, MagneticButton } from "./site-elements";
 
 type Selection = { category: string; view: "list" | "grid" };
+const groups = [
+  { id: "product", en: "Products", vi: "Sản phẩm" },
+  { id: "experience", en: "Experience & academic work", vi: "Kinh nghiệm & đồ án" },
+] as const;
 
 function ViewIcon({ grid }: { grid: boolean }) {
   return <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.5">{grid ? <><rect x="4" y="4" width="6" height="6" /><rect x="14" y="4" width="6" height="6" /><rect x="4" y="14" width="6" height="6" /><rect x="14" y="14" width="6" height="6" /></> : <path d="M3 6h18M3 12h18M3 18h18" />}</svg>;
 }
 
-export function ProjectCollection({ language, home = false }: { language: Language; home?: boolean }) {
+export function ProjectCollection({ projects, language, home = false }: { projects: readonly Project[]; language: Language; home?: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const collection = useRef<HTMLDivElement>(null);
   const exit = useRef<gsap.core.Timeline | null>(null);
   const [selection, setSelection] = useState<Selection>({ category: "all", view: "list" });
   const [rendered, setRendered] = useState(selection);
   const previousRendered = useRef(rendered);
-  const visible = projects.filter((project) => rendered.category === "all" || project.category.en === rendered.category);
+  const visible = useMemo(() => projects.filter((project) => rendered.category === "all" || project.group === rendered.category), [projects, rendered.category]);
 
   const select = (next: Selection) => {
     setSelection(next);
@@ -69,7 +73,7 @@ export function ProjectCollection({ language, home = false }: { language: Langua
         gsap.to(button, { width: cursorSize, height: cursorSize, duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
         gsap.to(label, { width: size(), height: buttonSize(), duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
         gsap.to(text, { fontSize: "1em", duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
-        gsap.to(strip, { yPercent: -index * 100 / projects.length, duration: motionTokens.previewSlide, ease: "power2.inOut", overwrite: true });
+        gsap.to(strip, { yPercent: -index * 100 / visible.length, duration: motionTokens.previewSlide, ease: "power2.inOut", overwrite: true });
       });
       const hide = () => context.add(() => {
         active = false;
@@ -79,7 +83,7 @@ export function ProjectCollection({ language, home = false }: { language: Langua
       });
       const press = (event: PointerEvent) => context.add(() => { if (active) gsap.to(button, { width: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), height: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true }); });
       const cleanups = [...element.querySelectorAll<HTMLElement>(".project-row")].map((row) => {
-        const enter = () => show(projects.findIndex((project) => project.slug === row.dataset.slug));
+        const enter = () => show(visible.findIndex((project) => project.slug === row.dataset.slug));
         row.addEventListener("pointerenter", enter); row.addEventListener("pointerleave", hide); row.addEventListener("focus", hide);
         row.addEventListener("pointerdown", press); row.addEventListener("pointerup", press);
         return () => { row.removeEventListener("pointerenter", enter); row.removeEventListener("pointerleave", hide); row.removeEventListener("focus", hide); row.removeEventListener("pointerdown", press); row.removeEventListener("pointerup", press); };
@@ -89,7 +93,7 @@ export function ProjectCollection({ language, home = false }: { language: Langua
       return () => { cleanups.forEach((cleanup) => cleanup()); window.removeEventListener("pointermove", move); gsap.ticker.remove(tick); context.revert(); };
     });
     return () => media.revert();
-  }, [rendered, home]);
+  }, [rendered, home, visible]);
 
   useLayoutEffect(() => () => { exit.current?.kill(); }, []);
 
@@ -97,13 +101,13 @@ export function ProjectCollection({ language, home = false }: { language: Langua
     {!home && <div className="work-filters" data-once>
       <div className="work-filter-options" aria-label={language === "en" ? "Project category" : "Lĩnh vực dự án"}>
         <MagneticButton type="button" className="pill-button filter-button" aria-pressed={selection.category === "all"} onClick={() => select({ ...selection, category: "all" })}>{language === "en" ? "All" : "Tất cả"}<sup>{projects.length}</sup></MagneticButton>
-        {projects.map((project) => <MagneticButton key={project.category.en} type="button" className="pill-button filter-button" aria-pressed={selection.category === project.category.en} onClick={() => select({ ...selection, category: project.category.en })}>{project.category[language]}</MagneticButton>)}
+        {groups.map((group) => <MagneticButton key={group.id} type="button" className="pill-button filter-button" aria-pressed={selection.category === group.id} onClick={() => select({ ...selection, category: group.id })}>{group[language]}<sup>{projects.filter((project) => project.group === group.id).length}</sup></MagneticButton>)}
       </div>
       <div className="work-view-options" aria-label={language === "en" ? "Project view" : "Cách xem dự án"}>{(["list", "grid"] as const).map((view) => <MagneticButton type="button" className="view-button" key={view} aria-pressed={selection.view === view} aria-label={language === "en" ? `${view === "list" ? "List" : "Grid"} view` : view === "list" ? "Xem danh sách" : "Xem lưới"} onClick={() => select({ ...selection, view })}><ViewIcon grid={view === "grid"} /></MagneticButton>)}</div>
     </div>}
     <div className="project-collection-entry" data-once={!home || undefined}><div ref={collection} className="project-collection" data-view={rendered.view}>
       {!home && <div className="project-table-heading label"><span>{language === "en" ? "Project" : "Dự án"}</span><span>{language === "en" ? "Organization" : "Tổ chức"}</span><span>{language === "en" ? "Field" : "Lĩnh vực"}</span><span>{language === "en" ? "Year" : "Năm"}</span></div>}
-      {visible.map((project, index) => <SiteLink key={project.slug} href={`/projects/${project.slug}`} data-slug={project.slug} className={`project-row ${home && index > 1 ? "home-extra-project" : ""}`}>
+      {visible.map((project) => <SiteLink key={project.slug} href={`/projects/${project.slug}`} data-slug={project.slug} className="project-row">
         <div className="project-mobile-image"><Image src={projectPhotos(project.slug)[0].src} alt={project.organization} unoptimized width={1200} height={1200} sizes="(max-width: 620px) 90vw, 44vw" /></div>
         <h2>{project.title}</h2>
         {!home && <span className="project-organization">{project.organization}</span>}
@@ -112,6 +116,6 @@ export function ProjectCollection({ language, home = false }: { language: Langua
         <span className="project-row-arrow"><Arrow /></span>
       </SiteLink>)}
     </div></div>
-    <div className="project-preview-layer" aria-hidden="true"><div className="preview-image"><div className="preview-strip">{projects.map((project) => <div key={project.slug}><Image src={projectPhotos(project.slug)[0].src} alt="" fill unoptimized loading="eager" sizes="400px" /></div>)}</div></div><div className="preview-button" /><div className="preview-label"><span>{language === "en" ? "View" : "Xem"}</span></div></div>
+    <div className="project-preview-layer" aria-hidden="true"><div className="preview-image"><div className="preview-strip">{visible.map((project) => <div key={project.slug}><Image src={projectPhotos(project.slug)[0].src} alt="" fill unoptimized loading="eager" sizes="400px" /></div>)}</div></div><div className="preview-button" /><div className="preview-label"><span>{language === "en" ? "View" : "Xem"}</span></div></div>
   </div>;
 }

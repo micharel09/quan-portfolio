@@ -34,6 +34,18 @@
 .about-learning-section { padding-top: 0; }
 .about-skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5em 2em; }
 .about-skills-grid h3 { font-size: 1em; margin-bottom: .65em; }
+.about-technologies { display: flex; flex-wrap: wrap; gap: .5em 1em; list-style: none; padding: 0; margin: 0; }
+.about-technologies li { max-width: 100%; }
+.technology { display: inline-flex; align-items: baseline; gap: 8px; max-width: 100%; }
+.technology > svg { width: 20px; height: 20px; flex: 0 0 20px; align-self: flex-start; margin-top: .175em; }
+.technology > span { min-width: 0; overflow-wrap: anywhere; }
+.technology:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; border-radius: 2px; }
+.technology-preview-position { z-index: 100; transform-origin: var(--radix-hover-card-content-transform-origin); }
+.technology-preview { display: block; padding: 4px; border: 2px solid transparent; border-radius: 12px; background: var(--paper); color: var(--ink); box-shadow: 0 20px 25px -5px rgb(0 0 0 / .15), 0 8px 10px -6px rgb(0 0 0 / .15); }
+.technology-preview:hover, .technology-preview:focus-visible { border-color: var(--soft); }
+.technology-preview img { display: block; width: 200px; height: 125px; object-fit: cover; border-radius: 8px; }
+.technology-preview-fallback { display: flex; flex-direction: column; justify-content: center; width: 200px; height: 125px; padding: 12px; font-size: 14px; overflow-wrap: anywhere; }
+.technology-preview-fallback > span { font-size: 12px; }
 .about-certifications { padding-top: calc(var(--section) / 2); }
 .about-certifications > h3 { margin-bottom: 1em; }
 .about-certifications article { padding-block: 1em; border-top: 1px solid rgb(28 29 32 / .2); }

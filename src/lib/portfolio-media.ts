@@ -1,6 +1,7 @@
 export const email = "tranminhquan.acc@gmail.com";
 export const cv = "/assets/tran-minh-quan-cv.pdf";
 export const portrait = "/assets/tran-minh-quan.jpg";
+export const aboutPortrait = "/assets/tran-minh-quan-about.jpg";
 export const heroPortrait = "/assets/tran-minh-quan-hero-studio.png";
 export const socialLinks = [
   { label: "GitHub", href: "https://github.com/micharel09" },
@@ -9,6 +10,9 @@ export const socialLinks = [
 ];
 export type ProjectPhoto = { src: string; alt: string; width: number; height: number; quality?: number };
 export const photosByProject = {
+  "fly-talent-dj": [{ src: "/assets/fly-talent-dj.webp", alt: "Fly Talent DJ marketplace", width: 1440, height: 1000, quality: 90 }],
+  "fly-jobs": [{ src: "/assets/fly-jobs-home.webp", alt: "Fly Jobs recruitment platform", width: 1440, height: 1000, quality: 90 }],
+  "fly-labour": [{ src: "/assets/fly-labour.webp", alt: "Fly Labour recruitment and education platform", width: 1440, height: 1000, quality: 90 }],
   "fcr-customer-request-system": [
     { src: "/assets/fpt-telecom-team-01.jpg", alt: "FPT Telecom team moment", width: 1200, height: 900 },
     { src: "/assets/fpt-telecom-team-02.jpg", alt: "FPT Telecom team at the office", width: 1200, height: 1600 },

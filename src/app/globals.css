@@ -213,7 +213,6 @@ h3 { font-size: clamp(1.55em,2.3vw,2.5em); line-height: 1.3; }
   .project-collection,.project-collection[data-view=grid] { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 calc(var(--gutter) * .5); padding-inline: calc(var(--gutter) * .25); }
   .project-table-heading { display: none !important; }
   .project-rows .project-row { display: grid; grid-template-columns: 1fr auto; padding: 0 0 var(--section); border: 0; align-items: start; }
-  .project-rows .project-row.home-extra-project { display: none; }
   .project-mobile-image { display: block; grid-column: 1 / -1; aspect-ratio: 1; overflow: hidden; margin-bottom: 2em; }
   .project-rows .project-row h2 { grid-column: 1 / -1; font-size: calc(clamp(1.75em,2.3vw,2.5em) * 1.15); line-height: 1.2; padding: 0 0 1em; border-bottom: 1px solid var(--line); margin-bottom: 1em; }
   .project-rows .project-row > span { font-size: .85em; padding: 0; }
