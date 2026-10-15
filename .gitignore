@@ -46,3 +46,5 @@ next-env.d.ts
 # Local agent tracking and plans
 /.agents/
 /docs/plans/
+/AGENTS.md
+/CLAUDE.md
