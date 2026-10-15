@@ -14,6 +14,6 @@ export const photosByProject = {
     { src: "/assets/fpt-telecom-team-03.jpg", alt: "FPT Telecom team group photo", width: 1600, height: 1200 },
   ],
   "vds-ai-cctv-weighbridge": [{ src: "/assets/itd-team.jpg", alt: "ITD Solutions team working together", width: 1200, height: 1600 }],
-  "eigakan-movie-sharing-platform": [{ src: "/assets/eigakan-team-enhanced.png", alt: "Eigakan graduation project team", width: 1086, height: 1448 }],
+  "eigakan-movie-sharing-platform": [{ src: "/assets/eigakan-team-upscaled.png", alt: "Eigakan graduation project team", width: 1920, height: 2560 }],
 } as const;
 export function projectPhotos(slug: string) { return photosByProject[slug as keyof typeof photosByProject]; }

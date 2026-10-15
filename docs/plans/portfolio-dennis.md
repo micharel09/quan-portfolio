@@ -204,3 +204,13 @@ Checkpoint: imagegen đang chạy, chưa tích hợp/kiểm chứng ảnh cuối
 
 Checkpoint: triển khai và QA ảnh đã đạt, giữ preview local. Phần đẩy GitHub được theo dõi tại FLY-104 với marker `[eigakan-photo:github-verified:v1]`; đích `origin/main`, chỉ push thường, không force/rebase/reset hoặc deploy thủ công. Bằng chứng commit/ref remote và kết quả dọn temp ghi tại task sau thao tác.
 Đã kiểm tra đường dẫn/reparse point, dọn toàn bộ temp `E:/CodexTemp/quan-portfolio/eigakan-photo` và xác nhận không còn; browser QA đã đóng. Giữ asset nâng chất lượng, ảnh gốc và server preview5380. Phần đẩy GitHub xem kết quả xác nhận ở marker Linear nêu trên.
+## Sửa lại ảnh Eigakan: chỉ upscale, không AI — 2026-10-15 — FLY-104
+
+User xác nhận bản AI đã làm khác khuôn mặt. Kết luận bảo toàn khuôn mặt của lượt trước không đạt; các QA tải ảnh/build trước không chứng minh fidelity. Tiếp tục sửa trong FLY-104 cùng mục tiêu, không tạo task trùng hoặc tự mở lại task Done.
+
+Yêu cầu chốt: chỉ upscale ảnh gốc, không sinh lại chi tiết/khuôn mặt. Bỏ asset AI `eigakan-team-enhanced.png` khỏi bản hiện tại; giữ nguyên `eigakan-team.jpg`. Dùng Sharp đã có, duy nhất resize1920 ×2560 với Lanczos3 rồi xuất PNG lossless, không sharpen/denoise/retouch hoặc imagegen. Asset `eigakan-team-upscaled.png`; cập nhật metadata và entry media dùng chung.
+
+Kiểm tra sớm: SHA-256 ảnh gốc vẫn `951d99a75dfd754c5bade230dc9b626f6eca30ae539dccddd7bff416247df7d7`. Metadata đầu ra1920 ×2560. So sánh toàn bộ buffer pixel giải mã PNG với kết quả resize Lanczos3 trực tiếp từ nguồn: khớp tuyệt đối. Đây là nội suy, không khôi phục thêm chi tiết thật. Đang build và kiểm tra lại runtime trước corrective commit/push thường lên main; không rewrite lịch sử. Temp/capture riêng tại `E:/CodexTemp/quan-portfolio/eigakan-photo-correction` cần dọn trước bàn giao.
+Kết quả bản sửa: PASS lint media, TypeScript sau build và production build8pages. Chromium Windows EN/VI1440/768/390 ×900: cover trỏ asset nội suy, gallery/lightbox tải đúng1920 ×2560; Escape đóng, không pageerror; đã xem lightbox endpoint trên mobile và đối chiếu gốc. Runtime giữ ảnh người và màn hình gốc, bao gồm nhiễu hiện có, không dùng khôi phục AI. Buffer nguồn/đầu ra đã kiểm chứng như trên; đây là bằng chứng chuỗi xử lý, không gọi hình mờ thành chi tiết mới.
+
+Đã review diff: thay entry media, xóa asset AI và thêm ảnh nội suy; không đổi hero hoặc ảnh dự án khác. Đã đóng browser QA, kiểm tra path/reparse point, dọn capture/profile tại `E:/CodexTemp/quan-portfolio/eigakan-photo-correction`, xác nhận không còn. Giữ preview5380. Tiếp tục corrective commit/push theo quyền user đã có; bằng chứng remote cuối ghi ở FLY-104 marker `[eigakan-photo:resize-only-verified:v1]`.
