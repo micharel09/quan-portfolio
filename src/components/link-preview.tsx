@@ -1,6 +1,5 @@
 "use client";
 
-// Static-image adaptation of https://ui.aceternity.com/registry/link-preview.json
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import Image from "next/image";

@@ -52,10 +52,10 @@ export function MenuDialog({ open, onClose, label, children, closeControl }: { o
         .fromTo(inner, { x: mobile ? "20vw" : 0 }, { x: 0, duration: 0.6 }, mobile ? 0.1 : 0)
         .fromTo(links, { x: "15vw" }, { x: 0, duration: motionTokens.menu, stagger: motionTokens.menuStagger }, mobile ? 0.1 : 0)
         .fromTo(scrim, { opacity: 0 }, { opacity: 0.35, duration: motionTokens.menu }, 0)
-        .fromTo(control, { scale: () => controlScale }, { scale: 1, duration: 0.4, ease: "dennisPreviewOut" }, 0)
-        .fromTo(button, { backgroundColor: ink }, { backgroundColor: blue, duration: 0.25, ease: "dennisPreviewOut" }, 0)
-        .fromTo(bars[0], { y: -4, rotation: 0 }, { y: 0, rotation: 45, duration: motionTokens.fast, ease: "dennisFast" }, 0)
-        .fromTo(bars[1], { y: 4, rotation: 0 }, { y: 0, rotation: -45, duration: motionTokens.fast, ease: "dennisFast" }, 0);
+        .fromTo(control, { scale: () => controlScale }, { scale: 1, duration: 0.4, ease: "previewLeaveEase" }, 0)
+        .fromTo(button, { backgroundColor: ink }, { backgroundColor: blue, duration: 0.25, ease: "previewLeaveEase" }, 0)
+        .fromTo(bars[0], { y: -4, rotation: 0 }, { y: 0, rotation: 45, duration: motionTokens.fast, ease: "fastEase" }, 0)
+        .fromTo(bars[1], { y: 4, rotation: 0 }, { y: 0, rotation: -45, duration: motionTokens.fast, ease: "fastEase" }, 0);
     }, dialog);
 
     const settle = () => {

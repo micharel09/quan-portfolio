@@ -57,7 +57,7 @@ export function ProjectCollection({ projects, language, home = false }: { projec
       const mouse = { x: 0, y: 0 };
       const move = (event: PointerEvent) => { mouse.x = event.clientX; mouse.y = event.clientY; };
       const tick = (_time: number, delta: number) => followers.forEach((follower) => {
-        // Source lerps at 120Hz: preserve its lag independently of display refresh.
+        // Normalize interpolation to preserve cursor lag across display refresh rates.
         const amount = 1 - Math.pow(1 - 1 / follower.divisor, delta / (1000 / 120));
         follower.x += (mouse.x - follower.x) * amount; follower.y += (mouse.y - follower.y) * amount;
         follower.left(follower.x); follower.top(follower.y);
@@ -68,20 +68,20 @@ export function ProjectCollection({ projects, language, home = false }: { projec
       let active = false;
       const show = (index: number) => context.add(() => {
         active = true;
-        gsap.to(image, { width: size(), duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
+        gsap.to(image, { width: size(), duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
         const cursorSize = buttonSize() * (!home && rendered.view === "grid" ? 1.66 : 1);
-        gsap.to(button, { width: cursorSize, height: cursorSize, duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
-        gsap.to(label, { width: size(), height: buttonSize(), duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
-        gsap.to(text, { fontSize: "1em", duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true });
+        gsap.to(button, { width: cursorSize, height: cursorSize, duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
+        gsap.to(label, { width: size(), height: buttonSize(), duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
+        gsap.to(text, { fontSize: "1em", duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
         gsap.to(strip, { yPercent: -index * 100 / visible.length, duration: motionTokens.previewSlide, ease: "power2.inOut", overwrite: true });
       });
       const hide = () => context.add(() => {
         active = false;
-        gsap.to(image, { width: 0, duration: motionTokens.preview, ease: "dennisPreviewOut", overwrite: true });
-        gsap.to([button, label], { width: 0, height: 0, duration: motionTokens.preview, ease: "dennisPreviewOut", overwrite: true });
-        gsap.to(text, { fontSize: 0, duration: motionTokens.preview, ease: "dennisPreviewOut", overwrite: true });
+        gsap.to(image, { width: 0, duration: motionTokens.preview, ease: "previewLeaveEase", overwrite: true });
+        gsap.to([button, label], { width: 0, height: 0, duration: motionTokens.preview, ease: "previewLeaveEase", overwrite: true });
+        gsap.to(text, { fontSize: 0, duration: motionTokens.preview, ease: "previewLeaveEase", overwrite: true });
       });
-      const press = (event: PointerEvent) => context.add(() => { if (active) gsap.to(button, { width: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), height: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), duration: motionTokens.preview, ease: "dennisPreviewIn", overwrite: true }); });
+      const press = (event: PointerEvent) => context.add(() => { if (active) gsap.to(button, { width: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), height: buttonSize() * (event.type === "pointerdown" ? 1.4 : 1), duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true }); });
       const cleanups = [...element.querySelectorAll<HTMLElement>(".project-row")].map((row) => {
         const enter = () => show(visible.findIndex((project) => project.slug === row.dataset.slug));
         row.addEventListener("pointerenter", enter); row.addEventListener("pointerleave", hide); row.addEventListener("focus", hide);
