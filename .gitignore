@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/.agents/pending/
 
 # next.js
 /.next/

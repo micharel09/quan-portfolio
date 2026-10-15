@@ -1,54 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { SiteDialog } from "./site-dialog";
+import type { Language } from "@/lib/portfolio-data";
 
-type Photo = {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-export function ProjectGallery({ photos }: { photos: readonly Photo[] }) {
+type Photo = { src: string; alt: string; width: number; height: number };
+export function ProjectGallery({ photos, language }: { photos: readonly Photo[]; language: Language }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (activeIndex === null) {
-      return;
-    }
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActiveIndex(null);
-      if (event.key === "ArrowRight") setActiveIndex((index) => index === null ? null : (index + 1) % photos.length);
-      if (event.key === "ArrowLeft") setActiveIndex((index) => index === null ? null : (index - 1 + photos.length) % photos.length);
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [activeIndex, photos.length]);
-
-  return <>
-    <div className={`team-photo-grid team-photo-grid-${photos.length}`}>
-      {photos.map((photo, index) => (
-        <figure key={photo.src}>
-          <button type="button" onClick={() => setActiveIndex(index)} aria-label={`View ${photo.alt}`}>
-            <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} unoptimized />
-          </button>
-        </figure>
-      ))}
-    </div>
-    <AnimatePresence>
-      {activeIndex !== null && (
-        <motion.div className="gallery-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setActiveIndex(null)}>
-          <motion.div className="gallery-lightbox-content" initial={{ opacity: 0, scale: .96, y: 24 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: .96, y: 24 }} onClick={(event) => event.stopPropagation()}>
-            <button type="button" className="lightbox-close" onClick={() => setActiveIndex(null)}>Close ×</button>
-            <Image src={photos[activeIndex].src} alt={photos[activeIndex].alt} width={photos[activeIndex].width} height={photos[activeIndex].height} unoptimized />
-            {photos.length > 1 && <div className="lightbox-controls"><button type="button" onClick={() => setActiveIndex((activeIndex - 1 + photos.length) % photos.length)}>← Previous</button><span>{activeIndex + 1} / {photos.length}</span><button type="button" onClick={() => setActiveIndex((activeIndex + 1) % photos.length)}>Next →</button></div>}
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  </>;
+  const photo = photos[activeIndex ?? 0];
+  const change = (direction: number) => setActiveIndex((index) => index === null ? null : (index + direction + photos.length) % photos.length);
+  return <><div className={`team-photo-grid team-photo-grid-${photos.length}`}>{photos.map((item, index) => <figure key={item.src}><button type="button" onClick={() => setActiveIndex(index)} aria-label={`${language === "en" ? "View" : "Xem"} ${item.alt}`}><Image src={item.src} alt={item.alt} width={item.width} height={item.height} sizes="(max-width: 720px) 88vw, 60vw" /></button></figure>)}</div><SiteDialog open={activeIndex !== null} onClose={() => setActiveIndex(null)} label={language === "en" ? "Project photos" : "Ảnh dự án"}><div onKeyDown={(event) => { if (event.key === "ArrowRight") { event.preventDefault(); change(1); } if (event.key === "ArrowLeft") { event.preventDefault(); change(-1); } }}><button type="button" className="lightbox-close" onClick={() => setActiveIndex(null)}>{language === "en" ? "Close" : "Đóng"} ×</button>{photo && <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} unoptimized />}{photos.length > 1 && <div className="lightbox-controls"><button type="button" onClick={() => change(-1)}>← {language === "en" ? "Previous" : "Trước"}</button><span aria-live="polite">{(activeIndex ?? 0) + 1} / {photos.length}</span><button type="button" onClick={() => change(1)}>{language === "en" ? "Next" : "Sau"} →</button></div>}</div></SiteDialog></>;
 }

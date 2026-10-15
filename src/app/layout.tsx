@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
-import { ScrollProgress } from "@/components/scroll-progress";
-import { Bebas_Neue, DM_Mono, Manrope } from "next/font/google";
+import { SiteProvider } from "@/components/site-provider";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 
 const sans = Manrope({ variable: "--font-sans", subsets: ["latin", "vietnamese"] });
-const display = Bebas_Neue({ variable: "--font-display", subsets: ["latin"], weight: "400" });
-const mono = DM_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   title: "Tran Minh Quan — Full Stack Developer",
@@ -26,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
-      <body><ScrollProgress />{children}</body>
+    <html lang="en" className={sans.variable}>
+      <body><noscript><style>{`.route-curtain { display: none !important; }`}</style></noscript><SiteProvider>{children}</SiteProvider></body>
     </html>
   );
 }
