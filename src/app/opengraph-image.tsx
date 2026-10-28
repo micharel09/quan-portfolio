@@ -1,13 +1,16 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "Tran Minh Quan — Full Stack Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const avatar = await readFile(join(process.cwd(), "public/tran-minh-quan-circle-180.png"), "base64");
   return new ImageResponse(
     <div style={{ background: "#101211", color: "#f3efe6", display: "flex", height: "100%", width: "100%", padding: "70px", position: "relative" }}>
-      <div style={{ border: "2px solid #d5ed19", color: "#d5ed19", display: "flex", fontFamily: "monospace", fontSize: 22, height: 74, alignItems: "center", justifyContent: "center", width: 74 }}>TMQ</div>
+      <img src={`data:image/png;base64,${avatar}`} alt="" width={74} height={74} style={{ border: "2px solid #d5ed19", borderRadius: "50%" }} />
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 46 }}>
         <div style={{ color: "#d5ed19", fontFamily: "monospace", fontSize: 20, letterSpacing: 2 }}>FULL-STACK DEVELOPER / HO CHI MINH CITY</div>
         <div style={{ display: "flex", flexDirection: "column", fontFamily: "Arial, sans-serif", fontSize: 94, fontWeight: 800, letterSpacing: -5, lineHeight: .9, marginTop: 32 }}>TRAN MINH<br />QUAN</div>

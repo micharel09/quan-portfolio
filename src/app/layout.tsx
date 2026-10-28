@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SiteProvider } from "@/components/site-provider";
+import { siteUrl } from "@/lib/site-metadata";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 
@@ -8,7 +9,7 @@ const sans = Manrope({ variable: "--font-sans", subsets: ["latin", "vietnamese"]
 export const metadata: Metadata = {
   title: "Trần Minh Quân — Full-stack Developer",
   description: "Portfolio of Trần Minh Quân, a full-stack developer based in Ho Chi Minh City.",
-  metadataBase: new URL("https://quan-portfolio-ten.vercel.app"),
+  metadataBase: new URL(siteUrl),
   icons: {
     icon: [
       { url: "/tran-minh-quan-circle.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },

@@ -164,6 +164,7 @@ export const copy = {
     },
   },
   labels: {
+    socials: { en: "Socials", vi: "Mạng xã hội" },
     role: { en: "Role", vi: "Vai trò" },
     brief: { en: "The brief", vi: "Bài toán" },
     contribution: { en: "My contribution", vi: "Phần đóng góp" },
