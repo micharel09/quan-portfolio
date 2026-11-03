@@ -10,6 +10,7 @@ import { Arrow, MagneticButton } from "./site-elements";
 
 type Selection = { category: string; view: "list" | "grid" };
 const groups = [
+  { id: "product", en: "Personal projects", vi: "Dự án cá nhân" },
   { id: "experience", en: "Experience & academic work", vi: "Kinh nghiệm & đồ án" },
 ] as const;
 
@@ -67,7 +68,8 @@ export function ProjectCollection({ projects, language, home = false }: { projec
       let active = false;
       const show = (index: number) => context.add(() => {
         active = true;
-        gsap.to(image, { width: size(), duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
+        const hasPhoto = !!projectPhotos(visible[index].slug)[0];
+        gsap.to(image, { width: hasPhoto ? size() : 0, duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
         const cursorSize = buttonSize() * (!home && rendered.view === "grid" ? 1.66 : 1);
         gsap.to(button, { width: cursorSize, height: cursorSize, duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
         gsap.to(label, { width: size(), height: buttonSize(), duration: motionTokens.preview, ease: "previewEnterEase", overwrite: true });
@@ -107,7 +109,7 @@ export function ProjectCollection({ projects, language, home = false }: { projec
     <div className="project-collection-entry" data-once={!home || undefined}><div ref={collection} className="project-collection" data-view={rendered.view}>
       {!home && <div className="project-table-heading label"><span>{language === "en" ? "Project" : "Dự án"}</span><span>{language === "en" ? "Organization" : "Tổ chức"}</span><span>{language === "en" ? "Field" : "Lĩnh vực"}</span><span>{language === "en" ? "Year" : "Năm"}</span></div>}
       {visible.map((project) => <SiteLink key={project.slug} href={`/projects/${project.slug}`} data-slug={project.slug} className="project-row">
-        <div className="project-mobile-image"><Image src={projectPhotos(project.slug)[0].src} alt={project.organization} unoptimized width={1200} height={1200} sizes="(max-width: 620px) 90vw, 44vw" /></div>
+        {projectPhotos(project.slug)[0] && <div className="project-mobile-image"><Image src={projectPhotos(project.slug)[0].src} alt={project.organization} unoptimized width={1200} height={1200} sizes="(max-width: 620px) 90vw, 44vw" /></div>}
         <h2>{project.title}</h2>
         {!home && <span className="project-organization">{project.organization}</span>}
         <span className="project-category">{project.category[language]}</span>
@@ -115,6 +117,6 @@ export function ProjectCollection({ projects, language, home = false }: { projec
         <span className="project-row-arrow"><Arrow /></span>
       </SiteLink>)}
     </div></div>
-    <div className="project-preview-layer" aria-hidden="true"><div className="preview-image"><div className="preview-strip">{visible.map((project) => <div key={project.slug}><Image src={projectPhotos(project.slug)[0].src} alt="" fill unoptimized loading="eager" sizes="400px" /></div>)}</div></div><div className="preview-button" /><div className="preview-label"><span>{language === "en" ? "View" : "Xem"}</span></div></div>
+    <div className="project-preview-layer" aria-hidden="true"><div className="preview-image"><div className="preview-strip">{visible.map((project) => <div key={project.slug}>{projectPhotos(project.slug)[0] && <Image src={projectPhotos(project.slug)[0].src} alt="" fill unoptimized loading="eager" sizes="400px" />}</div>)}</div></div><div className="preview-button" /><div className="preview-label"><span>{language === "en" ? "View" : "Xem"}</span></div></div>
   </div>;
 }

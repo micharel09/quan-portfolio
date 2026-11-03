@@ -14,11 +14,27 @@ export type Project = {
   stack: string[];
   year: string;
   group: "product" | "experience";
+  sourceUrl?: string;
+  demoUrl?: string;
   featured?: boolean;
   tone?: "fcr" | "itd" | "eigakan";
 };
 
 export const projects: Project[] = [
+  {
+    slug: "quan-dev-journal", number: "04", group: "product", title: "Quan Dev Journal",
+    category: { en: "Personal engineering journal", vi: "Nhật ký kỹ thuật cá nhân" },
+    organization: "Personal project", year: "2026",
+    summary: { en: "A technical journal with public Markdown articles and an ADMIN publishing workflow.", vi: "Nhật ký kỹ thuật với bài Markdown công khai và luồng xuất bản dành cho ADMIN." },
+    brief: { en: "Make implementation decisions and verification evidence inspectable in a personal product. Adapt Brocoders for authentication, Karhdo for the reading layout, and Conduit for article editing and persistence behavior.", vi: "Ghi lại quyết định triển khai và bằng chứng kiểm chứng trong sản phẩm cá nhân. Thích nghi Brocoders cho xác thực, Karhdo cho bố cục đọc và Conduit cho editor cùng hành vi lưu bài." },
+    contribution: [
+      { en: "Integrate NestJS, Next.js, TypeScript and PostgreSQL in a separate repository; Fly projects are outside this scope.", vi: "Tích hợp NestJS, Next.js, TypeScript và PostgreSQL trong repo riêng; các dự án Fly nằm ngoài phạm vi." },
+      { en: "Adapt article CRUD to TypeORM and backend ADMIN guards; keep public slugs stable after title edits.", vi: "Chuyển CRUD bài viết sang TypeORM và kiểm tra ADMIN ở backend; giữ slug công khai khi sửa tiêu đề." },
+      { en: "Port Karhdo post rows, dark tokens and responsive table of contents to React; connect URL search, tag filters and pagination.", vi: "Chuyển hàng bài viết, token tối và mục lục responsive của Karhdo sang React; nối tìm kiếm, lọc tag và phân trang qua URL." },
+      { en: "Local verification passed five backend test groups on PostgreSQL and eight desktop/mobile browser cases, including permission checks, stable slugs, migration rollback and preserving drafts after session expiry. Public demo and source links await publication and URL verification.", vi: "Bản local đã đạt năm nhóm kiểm thử backend với PostgreSQL và tám ca trình duyệt desktop/mobile, gồm phân quyền, slug ổn định, rollback migration và giữ bản soạn khi phiên hết hạn. Liên kết demo và mã nguồn chờ xuất bản và kiểm tra URL." },
+    ],
+    stack: ["NestJS", "Next.js", "TypeScript", "PostgreSQL", "TypeORM"],
+  },
   {
     slug: "fcr-customer-request-system",
     number: "01",

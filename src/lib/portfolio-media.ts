@@ -20,4 +20,4 @@ export const photosByProject = {
   "vds-ai-cctv-weighbridge": [{ src: "/assets/itd-team.jpg", alt: { en: "ITD Solutions team working together", vi: "Đội ngũ ITD Solutions làm việc cùng nhau" }, width: 1200, height: 1600 }],
   "eigakan-movie-sharing-platform": [{ src: "/assets/eigakan-team-sharpened.png", alt: { en: "Eigakan graduation project team", vi: "Nhóm thực hiện đồ án tốt nghiệp Eigakan" }, width: 1920, height: 2560, quality: 90 }],
 } as const;
-export function projectPhotos(slug: string): readonly ProjectPhoto[] { return photosByProject[slug as keyof typeof photosByProject]; }
+export function projectPhotos(slug: string): readonly ProjectPhoto[] { return photosByProject[slug as keyof typeof photosByProject] ?? []; }
