@@ -89,10 +89,26 @@ export function SiteProvider({ children }: { children: ReactNode }) {
     };
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
+      // Reset to an idle, uncovered page. Shared by Back/Forward and 404 recovery.
+      const reset = (path?: string) => {
+        generation++;
+        pendingCommit = undefined;
+        timeline?.kill();
+        currentPath = path ?? window.location.pathname;
+        destination = currentPath;
+        initial = false;
+        gsap.set(curtain, { autoAlpha: 0 });
+        const shell = document.querySelector<HTMLElement>(".portfolio-shell");
+        if (shell) gsap.set(shell.querySelectorAll("[data-once]"), { clearProps: "transform" });
+        setBusy(false);
+        curtain.dataset.state = "idle";
+      };
       const context = gsap.context(() => {
         const curveHeight = () => window.innerWidth > 540 ? "10vh" : "5vh";
         const enter = (at: number, homeLoader = false) => {
-          const targets = document.querySelector(".portfolio-shell")!.querySelectorAll("[data-once]");
+          const shell = document.querySelector<HTMLElement>(".portfolio-shell");
+          if (!shell) return;
+          const targets = shell.querySelectorAll("[data-once]");
           gsap.set(targets, { y: window.innerWidth > 540 ? "50vh" : initial ? "10vh" : "20vh" });
           timeline!.to(targets, { y: 0, duration: homeLoader ? 1.5 : 1, stagger: homeLoader ? 0.07 : 0.05, ease: "expo.out", clearProps: "transform" }, at);
         };
@@ -113,8 +129,12 @@ export function SiteProvider({ children }: { children: ReactNode }) {
           ready = false;
           initial = false;
           timeline?.kill();
-          gsap.killTweensOf("[data-once]");
-          gsap.set("[data-once]", { clearProps: "transform" });
+          const shell = document.querySelector<HTMLElement>(".portfolio-shell");
+          if (shell) {
+            const targets = shell.querySelectorAll("[data-once]");
+            gsap.killTweensOf(targets);
+            gsap.set(targets, { clearProps: "transform" });
+          }
           setBusy(true);
           label.textContent = routeLabel(path);
           curtain.dataset.state = "transition";
@@ -153,6 +173,8 @@ export function SiteProvider({ children }: { children: ReactNode }) {
           return true;
         };
         enterRef.current = (path) => {
+          // A missing shell means the route rendered the default 404 page.
+          if (!document.querySelector(".portfolio-shell")) { reset(path); return; }
           if (curtain.dataset.state === "idle") { currentPath = path; return; }
           if (path === currentPath && path !== destination) return;
           if (path === currentPath && initial) return;
@@ -170,6 +192,12 @@ export function SiteProvider({ children }: { children: ReactNode }) {
             });
           });
         };
+
+        // Opening the 404 page directly: no shell to prepare or reveal.
+        if (!document.querySelector(".portfolio-shell")) {
+          finish();
+          return;
+        }
 
         label.textContent = routeLabel(currentPath);
         const homeLoader = currentPath === "/";
@@ -211,18 +239,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       });
       const onPopState = () => {
         // Next owns the history traversal and restores scroll; never push here.
-        context.add(() => {
-          generation++;
-          pendingCommit = undefined;
-          timeline?.kill();
-          currentPath = window.location.pathname;
-          destination = currentPath;
-          initial = false;
-          gsap.set(curtain, { autoAlpha: 0 });
-          gsap.set("[data-once]", { clearProps: "transform" });
-          setBusy(false);
-          curtain.dataset.state = "idle";
-        });
+        context.add(() => reset());
       };
       window.addEventListener("popstate", onPopState);
       return () => {
@@ -246,7 +263,8 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       enterRef.current = () => {};
       setBusy(false);
       gsap.set(curtain, { autoAlpha: 0 });
-      gsap.set(document.querySelector(".portfolio-shell")!.querySelectorAll("[data-once]"), { clearProps: "transform" });
+      const shell = document.querySelector<HTMLElement>(".portfolio-shell");
+      if (shell) gsap.set(shell.querySelectorAll("[data-once]"), { clearProps: "transform" });
       curtain.dataset.state = "idle";
       initial = false;
     });

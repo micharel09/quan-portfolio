@@ -12,9 +12,6 @@ export const socialLinks = [
 ];
 export type ProjectPhoto = { src: string; alt: Record<Language, string>; width: number; height: number; quality?: number };
 export const photosByProject = {
-  "fly-talent-dj": [{ src: "/assets/fly-talent-dj.webp", alt: { en: "Fly Talent DJ marketplace", vi: "Nền tảng kết nối và đặt lịch DJ Fly Talent DJ" }, width: 1440, height: 1000, quality: 90 }],
-  "fly-jobs": [{ src: "/assets/fly-jobs-home.webp", alt: { en: "Fly Jobs recruitment platform", vi: "Nền tảng tuyển dụng Fly Jobs" }, width: 1440, height: 1000, quality: 90 }],
-  "fly-labour": [{ src: "/assets/fly-labour.webp", alt: { en: "Fly Labour recruitment and education platform", vi: "Nền tảng tuyển dụng và giáo dục Fly Labour" }, width: 1440, height: 1000, quality: 90 }],
   "fcr-customer-request-system": [
     { src: "/assets/fpt-telecom-team-01.jpg", alt: { en: "FPT Telecom team moment", vi: "Khoảnh khắc cùng đội ngũ FPT Telecom" }, width: 1200, height: 900 },
     { src: "/assets/fpt-telecom-team-02.jpg", alt: { en: "FPT Telecom team at the office", vi: "Đội ngũ FPT Telecom tại văn phòng" }, width: 1200, height: 1600 },

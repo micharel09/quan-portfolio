@@ -20,46 +20,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "fly-talent-dj", number: "01", title: "Fly Talent DJ", organization: "Fly",
-    group: "product", year: "2026",
-    category: { en: "DJ booking marketplace", vi: "Nền tảng đặt lịch DJ" },
-    summary: { en: "A DJ marketplace connecting clients with artists through profiles, availability, booking, and chat.", vi: "Nền tảng kết nối khách hàng với DJ qua hồ sơ, lịch hoạt động, booking và chat." },
-    brief: { en: "Bring discovery, scheduling, and direct client–DJ communication into one web and mobile product, with clear booking states.", vi: "Kết nối tìm kiếm DJ, lịch diễn và trao đổi khách hàng–DJ trong một sản phẩm web và mobile với trạng thái booking rõ ràng." },
-    contribution: [
-      { en: "Developed React/Vite marketplace interfaces and NestJS booking workflows.", vi: "Phát triển giao diện marketplace React/Vite và luồng booking NestJS." },
-      { en: "Worked on real-time chat, profile and availability flows across the web and Flutter app.", vi: "Phát triển chat thời gian thực, hồ sơ và lịch hoạt động trên web và ứng dụng Flutter." },
-      { en: "Prepared public web delivery and addressed release and App Review requirements.", vi: "Chuẩn bị triển khai web public và xử lý yêu cầu phát hành, App Review." },
-    ],
-    stack: ["React", "Vite", "NestJS", "TypeORM", "PostgreSQL", "Redis", "Socket.IO", "Flutter"],
-  },
-  {
-    slug: "fly-jobs", number: "02", title: "Fly Jobs", organization: "Fly",
-    group: "product", year: "2026",
-    category: { en: "Recruitment platform", vi: "Nền tảng tuyển dụng" },
-    summary: { en: "A multi-company recruitment platform for candidates, employers, recruiters, and administrators.", vi: "Nền tảng tuyển dụng đa doanh nghiệp dành cho ứng viên, nhà tuyển dụng, recruiter và quản trị viên." },
-    brief: { en: "Support job discovery, applications and CV handling while keeping company workspaces and recruitment stages clear.", vi: "Hỗ trợ tìm việc, ứng tuyển và quản lý CV, đồng thời phân tách không gian doanh nghiệp và các bước tuyển dụng rõ ràng." },
-    contribution: [
-      { en: "Developed Next.js interfaces and NestJS APIs for candidate and company workflows.", vi: "Phát triển giao diện Next.js và API NestJS cho luồng ứng viên và doanh nghiệp." },
-      { en: "Worked on CV storage, application management, and administrative workflows.", vi: "Phát triển lưu trữ CV, quản lý ứng tuyển và các luồng quản trị." },
-      { en: "Implemented Flutter candidate and management flows and prepared verified TestFlight builds.", vi: "Triển khai luồng ứng viên, quản lý bằng Flutter và chuẩn bị các bản TestFlight đã kiểm chứng." },
-    ],
-    stack: ["Next.js", "NestJS", "TypeORM", "PostgreSQL", "Redis", "BullMQ", "Google Cloud Storage", "Flutter"],
-  },
-  {
-    slug: "fly-labour", number: "03", title: "Fly Labour", organization: "Fly",
-    group: "product", year: "2026",
-    category: { en: "Recruitment & education", vi: "Tuyển dụng & giáo dục" },
-    summary: { en: "A platform bringing recruitment, study-abroad opportunities, courses, and certificate catalogs together.", vi: "Nền tảng kết nối tuyển dụng, cơ hội du học, khóa học và danh mục chứng chỉ." },
-    brief: { en: "Make opportunities and training information accessible through a shared web, API, and mobile experience.", vi: "Giúp người dùng tiếp cận cơ hội việc làm và thông tin đào tạo qua web, API và trải nghiệm mobile dùng chung dữ liệu." },
-    contribution: [
-      { en: "Developed training-partner showcases, course pricing interfaces, and certificate topic menus.", vi: "Phát triển khu vực đối tác đào tạo, giao diện học phí khóa học và menu nhóm chứng chỉ." },
-      { en: "Added the Lien Viet training certificate catalog across the React interface and NestJS backend. The wider project also includes a React Native/Expo app.", vi: "Bổ sung danh mục chứng chỉ đào tạo Liên Việt trên giao diện React và backend NestJS. Dự án còn có ứng dụng React Native/Expo." },
-    ],
-    stack: ["React", "NestJS", "TypeORM", "PostgreSQL", "React Native", "Expo"],
-  },
-  {
     slug: "fcr-customer-request-system",
-    number: "04",
+    number: "01",
     group: "experience",
     featured: true,
     title: "FCR — FTI Customer Request System",
@@ -84,7 +46,7 @@ export const projects: Project[] = [
   },
   {
     slug: "vds-ai-cctv-weighbridge",
-    number: "05",
+    number: "02",
     group: "experience",
     featured: true,
     title: "VDS & AI CCTV / Toll Weighbridge",
@@ -110,7 +72,7 @@ export const projects: Project[] = [
   },
   {
     slug: "eigakan-movie-sharing-platform",
-    number: "06",
+    number: "03",
     group: "experience",
     featured: true,
     title: "Eigakan — Real-Time Movie Sharing",
@@ -159,8 +121,8 @@ export const copy = {
   },
   about: {
     body: {
-      en: "I am a full-stack developer working across ASP.NET Core and NestJS APIs, React web interfaces, and Flutter and React Native mobile apps. My Fly projects span recruitment, DJ booking, and AI-assisted language practice, from PostgreSQL and real-time workflows to mobile build and delivery.",
-      vi: "Mình là lập trình viên full-stack, làm từ API ASP.NET Core và NestJS, giao diện web React đến ứng dụng Flutter và React Native. Các sản phẩm Fly trải dài từ tuyển dụng, đặt lịch DJ đến luyện ngôn ngữ có hỗ trợ AI, từ PostgreSQL và luồng thời gian thực đến build, triển khai mobile.",
+      en: "I am a full-stack developer working across ASP.NET Core and NestJS APIs, React web interfaces, and Flutter and React Native mobile apps.",
+      vi: "Mình là lập trình viên full-stack, làm từ API ASP.NET Core và NestJS, giao diện web React đến ứng dụng Flutter và React Native.",
     },
   },
   labels: {

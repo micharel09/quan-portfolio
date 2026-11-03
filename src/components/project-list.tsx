@@ -10,7 +10,6 @@ import { Arrow, MagneticButton } from "./site-elements";
 
 type Selection = { category: string; view: "list" | "grid" };
 const groups = [
-  { id: "product", en: "Products", vi: "Sản phẩm" },
   { id: "experience", en: "Experience & academic work", vi: "Kinh nghiệm & đồ án" },
 ] as const;
 

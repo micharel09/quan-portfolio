@@ -3,7 +3,7 @@ import { pageMetadata } from "@/lib/site-metadata";
 
 export const metadata = pageMetadata(
   "Projects — Trần Minh Quân",
-  "Explore Trần Minh Quân’s web, mobile, and real-time projects, including Fly products and work at FPT Telecom, ITD Solutions, and FPT University.",
+  "Explore Trần Minh Quân’s web, mobile, and real-time projects, including work at FPT Telecom, ITD Solutions, and FPT University.",
   "/projects",
 );
 
